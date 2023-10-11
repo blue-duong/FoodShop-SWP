@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FoodShop_SWP.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodShop_SWP.Areas.Admin.Controllers
 {
@@ -7,11 +11,41 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
     [Route("admin/homeadmin")]
     public class AdminController : Controller
     {
+        ShopDaiContext db = new ShopDaiContext();
         [Route("")]
         [Route("index")]
         public IActionResult Index()
         {
             return View();
         }
+        [Route("product-list")]
+        public IActionResult ProductList()
+        {
+            var productList = db.Products.Include(a => a.ProductDetailInfos).Include(a=> a.ProductImages).ToList();
+
+            return View(productList);
+        }
+        [Route("AddProduct")]
+        [HttpGet]
+        public IActionResult AddProduct()
+        {
+            ViewBag.CategoryGroupId = new SelectList(db.CategorGroups.ToList(), "id", "name");
+            return View();
+        }
+        [Route("AddProduct")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddProduct(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Products.Add(product);
+                db.SaveChanges();
+                return RedirectToAction("ProductList");
+            }
+            return View(product);
+                
+        }
+
     }
 }
