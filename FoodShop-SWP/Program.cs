@@ -1,7 +1,16 @@
-var builder = WebApplication.CreateBuilder(args);
+using FoodShop_SWP.Models;
+using Microsoft.EntityFrameworkCore;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddRazorPages()
+    .AddRazorRuntimeCompilation();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+#pragma warning disable ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+ServiceProvider provider = builder.Services.BuildServiceProvider();
+#pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+var configuration = provider.GetRequiredService<IConfiguration>();
+builder.Services.AddDbContext<ShopFoodWebContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
