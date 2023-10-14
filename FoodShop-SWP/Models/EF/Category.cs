@@ -35,6 +35,6 @@ namespace FoodShop_SWP.Models.EF
         public bool? IsActive { get; set; }
         public int? Position { get; set; }
         public ICollection<News> News { get; set; }
-        public ICollection<Posts> Posts { get; set; }
+        public ICollection<Posts>? Posts { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace FoodShop_SWP.Models.EF
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public DateTime ThoiGian { get; set; }
-        public long SoTruyCap { get; set; }
+        public DateTime? ThoiGian { get; set; }
+        public long? SoTruyCap { get; set; }
     }
 }

@@ -10,8 +10,8 @@ namespace FoodShop_SWP.Models.EF
         [StringLength(50)]
         public string SettingKey { get; set; }
         [StringLength(4000)]
-        public string SettingValue { get; set; }
+        public string? SettingValue { get; set; }
         [StringLength(4000)]
-        public string SettingDescription { get; set; }
+        public string? SettingDescription { get; set; }
     }
 }

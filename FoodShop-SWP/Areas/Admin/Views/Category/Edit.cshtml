@@ -1,6 +1,6 @@
 ﻿@model FoodShop_SWP.Models.EF.Category
 @{
-    ViewData["Title"] = "Add New Category";
+    ViewData["Title"] = "Edit Category";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -17,7 +17,7 @@
             <a href="/admin/category" class="nav-link">Category</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/add" class="nav-link">Add Category</a>
+            <a href="/admin/edit" class="nav-link">Edit Category</a>
         </li>
     </ul>
 }
@@ -25,13 +25,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Blank Page</h1>
+                <h1>Edit Category</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
                     <li class="breadcrumb-item"><a href="/admin/category">Category</a></li>
-                    <li class="breadcrumb-item active">Add</li>
+                    <li class="breadcrumb-item active">Edit</li>
                 </ol>
             </div>
         </div>
@@ -48,9 +48,10 @@
         </div>
         <div class="card-body">
             <div class="bs-stepper-content">
-                <form asp-action="Add" asp-controller="Category" method="post">
+                <form asp-action="Edit" asp-controller="Category" method="post">
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
+                    @Html.HiddenFor(x => x.Id)
                     <!-- your steps content here -->
                     <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
                         <div class="form-group">
@@ -82,17 +83,7 @@
                         </div>
                     </div>
                 </form>
-                @if (ViewBag.ValidationErrors != null)
-                {
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach (var error in ViewBag.ValidationErrors)
-                            {
-                                <li>@error</li>
-                            }
-                        </ul>
-                    </div>
-                }
+                
 
             </div>
         </div>

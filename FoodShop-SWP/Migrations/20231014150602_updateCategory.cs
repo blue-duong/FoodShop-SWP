@@ -4,7 +4,7 @@
 
 namespace FoodShop_SWP.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class updateCategory : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
