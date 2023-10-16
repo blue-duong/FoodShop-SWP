@@ -9,7 +9,7 @@ namespace FoodShop_SWP.Models.EF
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Bạn không để trống tiêu đề tin")]
+        [Required(ErrorMessage = "The blog title must not be blank")]
         [StringLength(150)]
         public string Title { get; set; }
         public string? Alias { get; set; }
@@ -21,7 +21,7 @@ namespace FoodShop_SWP.Models.EF
         public string? SeoTitle { get; set; }
         public string? SeoDescription { get; set; }
         public string? SeoKeywords { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
         public virtual Category? Category { get; set; }
     }
 }

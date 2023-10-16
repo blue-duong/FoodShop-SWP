@@ -42,7 +42,7 @@
             <h3 class="card-title">@ViewData["Title"]</h3>
 
             <div class="card-tools">
-                <a href="/admin/category/Add" class="btn btn-primary">Add</a>
+                <a href="/admin/blog/Add" class="btn btn-primary">Add</a>
             </div>
         </div>
         <div class="card-body">
@@ -50,8 +50,10 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Category Name</th>
-                        <th>Position</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th class="text-center">IsActive</th>
+                        <th>Created Date</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -61,13 +63,18 @@
                         var i = 1;
                         foreach (var item in Model)
                         {
-
+                            var strCheck = item.IsActive ? "<a href='#'><i class='fa fa-check text-success'></i> </a>" : "<a href='#'><i class='fas fa-times text-danger'></i> </a>";
                             <tr id="trow_@item.Id">
-                                <td>@i</td>
+                                <td>@i </td>
+                                <td><img src="~/Images/@item.Image" width="50" alt="Hình ảnh" ></td>
                                 <td>@item.Title</td>
+                                <td class ="text-center">
+                                    @Html.Raw(strCheck)
+                                </td>
+                                <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td>
-                                    <a asp-action="Edit" asp-controller="Category" asp-route-Id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
-                                    <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                    <a asp-action="Edit" asp-controller="New" asp-route-Id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                                    <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Delete</a>
                                 </td>
                             </tr>
                             i++;
@@ -96,10 +103,10 @@
         $(document).ready(function () {
             $('body').on('click', '.btnDelete', function () {
                 var id = $(this).data("id");
-                var conf = confirm('Do you want delete?');
+                var conf = confirm('Do you sure delete this blog?');
                 if (conf === true) {
                     $.ajax({
-                        url: '/admin/category/delete',
+                        url: '/admin/blog/delete',
                         type: 'POST',
                         data: { id: id },
                         success: function (rs) {

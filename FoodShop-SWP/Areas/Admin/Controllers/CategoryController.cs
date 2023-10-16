@@ -61,12 +61,9 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
                 model.Alias = FoodShop_SWP.Models.Common.Filter.FilterChar(model.Title);
                 db.Entry(model).Property(x => x.Title).IsModified = true;
                 db.Entry(model).Property(x => x.Description).IsModified = true;
-                db.Entry(model).Property(x => x.Link).IsModified = true;
-                db.Entry(model).Property(x => x.Alias).IsModified = true;
                 db.Entry(model).Property(x => x.SeoDescription).IsModified = true;
                 db.Entry(model).Property(x => x.SeoKeywords).IsModified = true;
                 db.Entry(model).Property(x => x.SeoTitle).IsModified = true;
-                db.Entry(model).Property(x => x.Position).IsModified = true;
                 db.Entry(model).Property(x => x.ModifiedDate).IsModified = true;
                 db.Entry(model).Property(x => x.Modifiedby).IsModified = true;
                 db.SaveChanges();
