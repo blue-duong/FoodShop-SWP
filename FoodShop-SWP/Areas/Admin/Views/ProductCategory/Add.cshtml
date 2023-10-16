@@ -1,8 +1,9 @@
-﻿@model FoodShop_SWP.Models.EF.Category
+﻿@model FoodShop_SWP.Models.EF.ProductCategory
 @{
-    ViewData["Title"] = "Edit Category";
+    ViewData["Title"] = "Add New Product Category";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @section naviheader{
     <!-- Left navbar links -->
@@ -14,10 +15,7 @@
             <a href="~/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/category" class="nav-link">Category</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/edit" class="nav-link">Edit Category</a>
+            <a href="/admin/productcategory" class="nav-link">Product Category</a>
         </li>
     </ul>
 }
@@ -25,13 +23,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Edit Category</h1>
+                <h1>Add New Blog</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/admin/category">Category</a></li>
-                    <li class="breadcrumb-item active">Edit</li>
+                    <li class="breadcrumb-item"><a href="/admin/productcategory">Product Category</a></li>
+                    <li class="breadcrumb-item active">Add</li>
                 </ol>
             </div>
         </div>
@@ -44,46 +42,49 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Add Category</h3>
+            <h3 class="card-title">Add Product Category</h3>
         </div>
         <div class="card-body">
             <div class="bs-stepper-content">
-                <form asp-action="Edit" asp-controller="Category" method="post">
+                <form asp-action="Add" asp-controller="ProductCategory" method="post">
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
-                    @Html.HiddenFor(x => x.Id)
                     <!-- your steps content here -->
                     <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
                         <div class="form-group">
-                            <label asp-for="Title">Category Name</label>
-                            <input asp-for="Title" class="form-control" placeholder="Category Name" />
+                            <label asp-for="Title">Title</label>
+                            <input asp-for="Title" class="form-control" placeholder="Title" />
                             <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Alias">Alias</label>
+                            <input asp-for="Alias" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label asp-for="Description">Description</label>
                             <textarea asp-for="Description" class="form-control"></textarea>
-                            @* <label for="exampleInputPassword1">Mô tả</label>
-                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control" }) *@
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Position">Position</label>
-                            <input asp-for="Position" class="form-control" />
-                            @* <label for="exampleInputEmail1">Thứ tự</label>
-                            @Html.TextBoxFor(x => x.Position, new { @class = "form-control" }) *@
                         </div>
                         <div class="form-group">
                             <label asp-for="SeoTitle">Seo Title</label>
                             <input asp-for="SeoTitle" class="form-control" />
-                            @* <label for="exampleInputPassword1">Seo title</label>
-                            @Html.TextAreaFor(x => x.SeoTitle, new { @class = "form-control" }) *@
                         </div>
                         <div class="form-group">
-                            <a href="/admin/category" class="btn btn-danger">Quay lại</a>
+                            <a href="/admin/productcategory" class="btn btn-danger">Quay lại</a>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </form>
-                
+                @if (ViewBag.ValidationErrors != null)
+                    {
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach (var error in ViewBag.ValidationErrors)
+                                {
+                                    <li>@error</li>
+                                }
+                            </ul>
+                        </div>
+                    }
 
             </div>
         </div>
@@ -95,3 +96,23 @@
     <!-- /.card -->
 
 </section>
+@section  scripts{
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('txtDetail', {
+                customConfig: 'adminlayout/ckeditor/config.js',
+                extraAllowedContent: 'span',
+            });
+        });
+        function BrowseServer(field) {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                document.getElementById(field).value = fileUrl;
+            };
+            finder.popup();
+        }
+
+    </script>
+    }
+
+

@@ -1,10 +1,9 @@
-﻿@using FoodShop_SWP.Models.EF;
+﻿@model List<FoodShop_SWP.Models.EF.ProductCategory>
 @{
-    ViewData["Title"] = "Blog List";
+    ViewData["Title"] = "Product Category List";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-@using X.PagedList.Mvc.Core;
-@model X.PagedList.IPagedList<News>
+
 @section naviheader{
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -23,7 +22,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Blog Management</h1>
+                <h1>Product Category Management</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -44,7 +43,7 @@
             <h3 class="card-title">@ViewData["Title"]</h3>
 
             <div class="card-tools">
-                <a href="/admin/blog/Add" class="btn btn-primary">Add</a>
+                <a href="/admin/productcategory/Add" class="btn btn-primary">Add</a>
             </div>
         </div>
         <div class="card-body">
@@ -52,9 +51,7 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Image</th>
                         <th>Title</th>
-                        <th class="text-center">IsActive</th>
                         <th>Created Date</th>
                         <th></th>
                     </tr>
@@ -62,21 +59,17 @@
                 <tbody>
                     @if (Model != null && Model.Any())
                     {
-                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                        var i = @* ((ViewBag.Page - 1) * ViewBag.PageSize) +  *@1;
                         foreach (var item in Model)
                         {
-                            
-                            var strCheck = item.IsActive ? "<a href='#'><i class='fa fa-check text-success'></i> </a>" : "<a href='#'><i class='fas fa-times text-danger'></i> </a>";
+
                             <tr id="trow_@item.Id">
                                 <td>@i </td>
-                                <td><img src="~/Images/blogs/@item.Image" width="70" alt="Hình ảnh" ></td>
                                 <td>@item.Title</td>
-                                <td class ="text-center">
-                                    @Html.Raw(strCheck)
-                                </td>
+                                
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td>
-                                    <a asp-action="Edit" asp-controller="New" asp-route-Id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                                    <a asp-action="Edit" asp-controller="ProductCategory" asp-route-Id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
                                     <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Delete</a>
                                 </td>
                             </tr>
@@ -92,12 +85,12 @@
                     }
                 </tbody>
             </table>
-            <div class="row">
+            @* <div class="row">
                 <div class="col-6"></div>
                 <div class="col-6" style="text-align:right;">
                     @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
                 </div>
-            </div>
+            </div> *@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -112,10 +105,10 @@
         $(document).ready(function () {
             $('body').on('click', '.btnDelete', function () {
                 var id = $(this).data("id");
-                var conf = confirm('Do you sure delete this blog?');
+                var conf = confirm('Do you sure delete this product category?');
                 if (conf === true) {
                     $.ajax({
-                        url: '/admin/blog/delete',
+                        url: '/admin/productcategory/delete',
                         type: 'POST',
                         data: { id: id },
                         success: function (rs) {

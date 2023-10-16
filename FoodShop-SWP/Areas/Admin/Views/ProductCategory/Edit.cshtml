@@ -1,6 +1,6 @@
-﻿@model FoodShop_SWP.Models.EF.News
+﻿@model FoodShop_SWP.Models.EF.ProductCategory
 @{
-    ViewData["Title"] = "Edit Blog";
+    ViewData["Title"] = "Edit Product Category";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -15,7 +15,7 @@
             <a href="~/admin/home" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/blog" class="nav-link">Blog</a>
+            <a href="/admin/blog" class="nav-link">Product Category</a>
         </li>
     </ul>
 }
@@ -23,12 +23,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Edit Blog</h1>
+                <h1>Edit Product Category</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/admin/blog">Blog</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/productcategory">Product Category</a></li>
                     <li class="breadcrumb-item active">Edit</li>
                 </ol>
             </div>
@@ -42,16 +42,18 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Blog Info</h3>
+            <h3 class="card-title">Edit Product Category</h3>
         </div>
         <div class="card-body">
             @if (Model != null)
             {
                 <div class="bs-stepper-content">
-                    <form asp-action="Edit" asp-controller="New" method="post">
+                    <form asp-action="Edit" asp-controller="ProductCategory" method="post">
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
                         @Html.HiddenFor(x => x.Id)
+
+                        @Html.HiddenFor(x=>x.CreatedDate)
                         <!-- your steps content here -->
                         <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
                             <div class="form-group">
@@ -59,45 +61,38 @@
                                 <input asp-for="Title" class="form-control" placeholder="Title" />
                                 <span asp-validation-for="Title" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
+                            @* <div class="form-group">
                                 <label asp-for="Image">Image</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" id="newImage" class="form-control" />
                                         <input asp-for="Image" class="form-control" id="imageInput" readonly />
                                     </div>
-                                </div>
-                                @* <label asp-for="Image">Image</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input asp-for="Image" class="form-control" />
-                                    </div>
-                                    <div class="input-group-append">
-                                        <input type="button" value="upload" onclick="browseserver('txtimage');" />
-                                    </div>
                                 </div> *@
+                                @* <label asp-for="Image">Image</label>
+                            <div class="input-group">
+                            <div class="custom-file">
+                            <input asp-for="Image" class="form-control" />
+                            </div>
+                            <div class="input-group-append">
+                            <input type="button" value="upload" onclick="browseserver('txtimage');" />
+                            </div>
+                            </div> *@
+                            <div class="form-group">
+                                <label asp-for="Alias">Alias</label>
+                                <input asp-for="Alias" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <label asp-for="Description">Description</label>
                                 <textarea asp-for="Description" class="form-control"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label asp-for="Detail">Detail</label>
-                                <textarea asp-for="Detail" class="form-control"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="IsActive" style="display: inline-block; width: auto;">
-                                    IsActive
-                                    <input type="checkbox" asp-for="IsActive" class="form-control" style="width: 20px; height: 20px; margin-left: 20px;" />
-                                </label>
-                            </div>
-                            
+
                             <div class="form-group">
                                 <label asp-for="SeoTitle">Seo Title</label>
                                 <input asp-for="SeoTitle" class="form-control" />
                             </div>
                             <div class="form-group">
-                                <a href="/admin/blog" class="btn btn-danger">Quay lại</a>
+                                <a href="/admin/productcategory" class="btn btn-danger">Back</a>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
@@ -116,7 +111,7 @@
 
                 </div>
             }
-            
+
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -155,5 +150,3 @@
 
     </script>
 } *@
-
-

@@ -35,11 +35,10 @@ namespace FoodShop_SWP.Models.EF
         public decimal? PriceSale { get; set; }
         public int? Quantity { get; set; }
         public int? ViewCount { get; set; }
-        public bool? IsHome { get; set; }
-        public bool? IsSale { get; set; }
-        public bool? IsFeature { get; set; }
-        public bool? IsHot { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsSale { get; set; }
+        public bool IsFeature { get; set; }
+        public bool IsHot { get; set; }
+        public bool IsActive { get; set; }
         public int? ProductCategoryId { get; set; }
 
         [StringLength(250)]

@@ -13,7 +13,7 @@ namespace FoodShop_SWP.Models.EF
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Product Category title must not be blank")]
         [StringLength(150)]
         public string Title { get; set; }
         [Required]

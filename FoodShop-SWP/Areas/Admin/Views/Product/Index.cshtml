@@ -1,10 +1,10 @@
 ﻿@using FoodShop_SWP.Models.EF;
 @{
-    ViewData["Title"] = "Blog List";
+    ViewData["Title"] = "Product List";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 @using X.PagedList.Mvc.Core;
-@model X.PagedList.IPagedList<News>
+@model X.PagedList.IPagedList<Product>
 @section naviheader{
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -19,11 +19,12 @@
         </li>
     </ul>
 }
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Blog Management</h1>
+                <h1>Product Management</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -44,7 +45,7 @@
             <h3 class="card-title">@ViewData["Title"]</h3>
 
             <div class="card-tools">
-                <a href="/admin/blog/Add" class="btn btn-primary">Add</a>
+                <a href="/admin/product/Add" class="btn btn-primary">Add</a>
             </div>
         </div>
         <div class="card-body">
@@ -53,9 +54,14 @@
                     <tr>
                         <th>No.</th>
                         <th>Image</th>
-                        <th>Title</th>
-                        <th class="text-center">IsActive</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
                         <th>Created Date</th>
+                        <th class="text-center">IsFeature</th>
+                        <th class="text-center">IsSell</th>
+                        <th class="text-center">IsActive</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -65,18 +71,34 @@
                         var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
                         foreach (var item in Model)
                         {
-                            
-                            var strCheck = item.IsActive ? "<a href='#'><i class='fa fa-check text-success'></i> </a>" : "<a href='#'><i class='fas fa-times text-danger'></i> </a>";
+                            var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            var strCheckHome = item.IsFeature ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            var strCheckSale = item.IsSale ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            var strImg = "";
+                            @* var CheckImage = item.ProductImage.FirstOrDefault(x => x.IsDefault); *@
+                            @* if (CheckImage != null)
+                            {
+                                strImg = CheckImage.Image;
+                            } *@
                             <tr id="trow_@item.Id">
-                                <td>@i </td>
-                                <td><img src="~/Images/blogs/@item.Image" width="70" alt="Hình ảnh" ></td>
+                                <td>@i</td>
+                                <td><img src="~/Images/products/@item.Image" width="70" alt="Hình ảnh"></td>
                                 <td>@item.Title</td>
-                                <td class ="text-center">
-                                    @Html.Raw(strCheck)
-                                </td>
+                                <td>@item.ProductCategoryId</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price$</td>
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">
+                                    <a href='#' data-id="@item.Id" class="btnHome">@Html.Raw(strCheckHome)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href='#' data-id="@item.Id" class="btnSale">@Html.Raw(strCheckSale)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href='#' data-id="@item.Id" class="btnActive">@Html.Raw(strCheck)</a>
+                                </td>
                                 <td>
-                                    <a asp-action="Edit" asp-controller="New" asp-route-Id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                                    <a asp-action="Edit" asp-controller="Product" asp-route-Id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
                                     <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Delete</a>
                                 </td>
                             </tr>
@@ -87,7 +109,6 @@
                     {
                         <tr>
                             <td colspan="4">Không có bản ghi nào!!!</td>
-
                         </tr>
                     }
                 </tbody>
@@ -115,7 +136,7 @@
                 var conf = confirm('Do you sure delete this blog?');
                 if (conf === true) {
                     $.ajax({
-                        url: '/admin/blog/delete',
+                        url: '/admin/product/delete',
                         type: 'POST',
                         data: { id: id },
                         success: function (rs) {
