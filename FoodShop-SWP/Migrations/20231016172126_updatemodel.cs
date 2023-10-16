@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodShop_SWP.Migrations
 {
-    public partial class FoodShop : Migration
+    public partial class updatemodel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,8 +21,8 @@ namespace FoodShop_SWP.Migrations
                     Link = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Type = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Modifiedby = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -46,8 +46,8 @@ namespace FoodShop_SWP.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     Position = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Modifiedby = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -67,8 +67,8 @@ namespace FoodShop_SWP.Migrations
                     Message = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
                     IsRead = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Modifiedby = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -91,8 +91,8 @@ namespace FoodShop_SWP.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: true),
                     TypePayment = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Modifiedby = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -114,8 +114,8 @@ namespace FoodShop_SWP.Migrations
                     SeoDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     SeoKeywords = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Modifiedby = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -151,6 +151,27 @@ namespace FoodShop_SWP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tb_User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Enable = table.Column<bool>(type: "bit", nullable: true),
+                    Firrtname = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Gender = table.Column<bool>(type: "bit", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    IsLockout = table.Column<bool>(type: "bit", nullable: true),
+                    Lastname = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tb_News",
                 columns: table => new
                 {
@@ -165,10 +186,10 @@ namespace FoodShop_SWP.Migrations
                     SeoTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SeoDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SeoKeywords = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Modifiedby = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -198,8 +219,8 @@ namespace FoodShop_SWP.Migrations
                     SeoKeywords = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Modifiedby = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -229,18 +250,17 @@ namespace FoodShop_SWP.Migrations
                     PriceSale = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: true),
                     ViewCount = table.Column<int>(type: "int", nullable: true),
-                    IsHome = table.Column<bool>(type: "bit", nullable: true),
-                    IsSale = table.Column<bool>(type: "bit", nullable: true),
-                    IsFeature = table.Column<bool>(type: "bit", nullable: true),
-                    IsHot = table.Column<bool>(type: "bit", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsSale = table.Column<bool>(type: "bit", nullable: false),
+                    IsFeature = table.Column<bool>(type: "bit", nullable: false),
+                    IsHot = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ProductCategoryId = table.Column<int>(type: "int", nullable: true),
                     SeoTitle = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     SeoDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     SeoKeywords = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Modifiedby = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -355,6 +375,9 @@ namespace FoodShop_SWP.Migrations
 
             migrationBuilder.DropTable(
                 name: "tb_SystemSetting");
+
+            migrationBuilder.DropTable(
+                name: "tb_User");
 
             migrationBuilder.DropTable(
                 name: "tb_Order");

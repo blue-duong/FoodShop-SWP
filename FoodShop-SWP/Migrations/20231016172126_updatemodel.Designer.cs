@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodShop_SWP.Migrations
 {
     [DbContext(typeof(ShopFoodWebContext))]
-    [Migration("20231016024945_User")]
-    partial class User
+    [Migration("20231016172126_updatemodel")]
+    partial class updatemodel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -403,19 +403,16 @@ namespace FoodShop_SWP.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool?>("IsActive")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsFeature")
+                    b.Property<bool>("IsFeature")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsHome")
+                    b.Property<bool>("IsHot")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsHot")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsSale")
+                    b.Property<bool>("IsSale")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("ModifiedDate")
@@ -585,6 +582,55 @@ namespace FoodShop_SWP.Migrations
                     b.HasKey("SettingKey");
 
                     b.ToTable("tb_SystemSetting");
+                });
+
+            modelBuilder.Entity("FoodShop_SWP.Models.EF.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool?>("Enable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Firrtname")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool?>("IsLockout")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("Role")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tb_User");
                 });
 
             modelBuilder.Entity("FoodShop_SWP.Models.EF.News", b =>

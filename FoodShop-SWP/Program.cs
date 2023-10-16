@@ -6,6 +6,7 @@ builder.Services.AddRazorPages()
     .AddRazorRuntimeCompilation();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
 #pragma warning disable ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
 ServiceProvider provider = builder.Services.BuildServiceProvider();
 #pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
@@ -21,7 +22,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
