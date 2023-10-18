@@ -17,9 +17,13 @@
                     <h6><a href="@item.Alias">@item.Title</a></h6>
                     @if(item.PriceSale > 0)
                     {
-                        <h5>@item.PriceSale$ <strike>@item.Price$</strike></h5>
+                        <h5>$@item.PriceSale  <strike style="color: red">$@item.Price</strike></h5>
                     }
-                    <h5>@item.Price$</h5>
+                    else
+                    {
+                        <h5>$@item.Price</h5>
+                    }
+                    
                 </div>
             </div>
         </div>

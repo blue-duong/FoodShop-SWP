@@ -15,7 +15,7 @@ namespace FoodShop_SWP.Models.EF
         public int Id { get; set; }
         [Required(ErrorMessage = "The Product Category title must not be blank")]
         [StringLength(150)]
-        public string Title { get; set; }
+        public string? Title { get; set; }
         [Required]
         [StringLength(150)]
         public string? Alias { get; set; }

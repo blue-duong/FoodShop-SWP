@@ -26,7 +26,14 @@ namespace FoodShop_SWP.Models
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public DbSet<Subscribe> Subscribes {  get; set; } = null!;
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Thiết lập quan hệ giữa Product và ProductCategory
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.ProductCategory)
+                .WithMany(pc => pc.Products)
+                .HasForeignKey(p => p.ProductCategoryId);
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 

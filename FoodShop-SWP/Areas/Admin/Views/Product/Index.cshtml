@@ -86,14 +86,19 @@
                                 <td>@item.Title</td>
                                 @if (item.ProductCategory != null)
                                 {
-                                    @item.ProductCategory.Alias
+                                    @(item.ProductCategory?.Title)
                                 }
                                 else
                                 {
                                 <td>@item.ProductCategoryId</td>
                                 }
                                 <td>@item.Quantity</td>
-                                <td>@item.Price$</td>
+                                @if(@item.PriceSale > 0){
+                                    <td>@item.PriceSale$</td>
+                                }else{
+                                    <td>@item.Price$</td>
+                                }
+                                
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td class="text-center">
                                     <a href='#' data-id="@item.Id" class="btnHome">@Html.Raw(strCheckFeature)</a>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodShop_SWP.Models.EF
@@ -39,7 +40,7 @@ namespace FoodShop_SWP.Models.EF
         public bool IsFeature { get; set; }
         public bool IsHot { get; set; }
         public bool IsActive { get; set; }
-        public int ProductCategoryId { get; set; }
+        
 
         [StringLength(250)]
         public string? SeoTitle { get; set; }
@@ -47,7 +48,9 @@ namespace FoodShop_SWP.Models.EF
         public string? SeoDescription { get; set; }
         [StringLength(250)]
         public string? SeoKeywords { get; set; }
-        public ProductCategory ProductCategory { get; set; }
+        [ForeignKey("ProductCategory")]
+        public int ProductCategoryId { get; set; }
+        public virtual ProductCategory? ProductCategory { get; set; }
         public virtual ICollection<ProductImage> ProductImage { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
