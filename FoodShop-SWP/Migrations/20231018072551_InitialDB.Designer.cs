@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodShop_SWP.Migrations
 {
     [DbContext(typeof(ShopFoodWebContext))]
-    [Migration("20231016172126_updatemodel")]
-    partial class updatemodel
+    [Migration("20231018072551_InitialDB")]
+    partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -545,6 +545,32 @@ namespace FoodShop_SWP.Migrations
                     b.ToTable("tb_ProductImage");
                 });
 
+            modelBuilder.Entity("FoodShop_SWP.Models.EF.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("FoodShop_SWP.Models.EF.Subscribe", b =>
                 {
                     b.Property<int>("Id")
@@ -628,7 +654,12 @@ namespace FoodShop_SWP.Migrations
                     b.Property<int?>("Role")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RolesId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RolesId");
 
                     b.ToTable("tb_User");
                 });
@@ -684,6 +715,15 @@ namespace FoodShop_SWP.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("FoodShop_SWP.Models.EF.User", b =>
+                {
+                    b.HasOne("FoodShop_SWP.Models.EF.Role", "Roles")
+                        .WithMany("Users")
+                        .HasForeignKey("RolesId");
+
+                    b.Navigation("Roles");
+                });
+
             modelBuilder.Entity("FoodShop_SWP.Models.EF.Category", b =>
                 {
                     b.Navigation("News");
@@ -706,6 +746,11 @@ namespace FoodShop_SWP.Migrations
             modelBuilder.Entity("FoodShop_SWP.Models.EF.ProductCategory", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("FoodShop_SWP.Models.EF.Role", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

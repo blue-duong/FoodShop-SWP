@@ -5,10 +5,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodShop_SWP.Migrations
 {
-    public partial class updatemodel : Migration
+    public partial class InitialDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    status = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "tb_Adv",
                 columns: table => new
@@ -164,11 +179,17 @@ namespace FoodShop_SWP.Migrations
                     IsLockout = table.Column<bool>(type: "bit", nullable: true),
                     Lastname = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: true)
+                    Role = table.Column<int>(type: "int", nullable: true),
+                    RolesId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tb_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_tb_User_Roles_RolesId",
+                        column: x => x.RolesId,
+                        principalTable: "Roles",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -348,6 +369,11 @@ namespace FoodShop_SWP.Migrations
                 name: "IX_tb_ProductImage_ProductId",
                 table: "tb_ProductImage",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_User_RolesId",
+                table: "tb_User",
+                column: "RolesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -387,6 +413,9 @@ namespace FoodShop_SWP.Migrations
 
             migrationBuilder.DropTable(
                 name: "tb_Product");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "tb_ProductCategory");

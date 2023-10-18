@@ -38,9 +38,8 @@ namespace FoodShop_SWP.Models.EF
         public bool IsSale { get; set; }
         public bool IsFeature { get; set; }
         public bool IsHot { get; set; }
-        public bool IsHome { get; set; }
         public bool IsActive { get; set; }
-        public int? ProductCategoryId { get; set; }
+        public int ProductCategoryId { get; set; }
 
         [StringLength(250)]
         public string? SeoTitle { get; set; }
@@ -48,8 +47,7 @@ namespace FoodShop_SWP.Models.EF
         public string? SeoDescription { get; set; }
         [StringLength(250)]
         public string? SeoKeywords { get; set; }
-
-        public virtual ProductCategory? ProductCategory { get; set; }
+        public ProductCategory ProductCategory { get; set; }
         public virtual ICollection<ProductImage> ProductImage { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

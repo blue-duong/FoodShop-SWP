@@ -72,7 +72,7 @@
                         foreach (var item in Model)
                         {
                             var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
-                            var strCheckHome = item.IsFeature ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            var strCheckFeature = item.IsFeature ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
                             var strCheckSale = item.IsSale ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
                             var strImg = "";
                             @* var CheckImage = item.ProductImage.FirstOrDefault(x => x.IsDefault); *@
@@ -84,12 +84,19 @@
                                 <td>@i</td>
                                 <td><img src="~/Images/products/@item.Image" width="70" alt="Hình ảnh"></td>
                                 <td>@item.Title</td>
+                                @if (item.ProductCategory != null)
+                                {
+                                    @item.ProductCategory.Alias
+                                }
+                                else
+                                {
                                 <td>@item.ProductCategoryId</td>
+                                }
                                 <td>@item.Quantity</td>
                                 <td>@item.Price$</td>
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td class="text-center">
-                                    <a href='#' data-id="@item.Id" class="btnHome">@Html.Raw(strCheckHome)</a>
+                                    <a href='#' data-id="@item.Id" class="btnHome">@Html.Raw(strCheckFeature)</a>
                                 </td>
                                 <td class="text-center">
                                     <a href='#' data-id="@item.Id" class="btnSale">@Html.Raw(strCheckSale)</a>
