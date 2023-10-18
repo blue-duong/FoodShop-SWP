@@ -14,6 +14,6 @@ namespace FoodShop_SWP.Models.EF
         public string Description { get; set; }
         public bool status { get; set; }
 
-        public ICollection<User> Users { get; set; }
+      //  public ICollection<User> Users { get; set; }
     }
 }
