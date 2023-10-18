@@ -15,7 +15,8 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
         ShopFoodWebContext db = new ShopFoodWebContext();
         [Route("blog")]
         public IActionResult Index(string Searchtext, int? page)
-        {
+        {   
+
             int pageSize = 6;
             if (page == null)
             {
@@ -27,7 +28,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
             //    items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
             //}
             int pageNumber = page ==null || page < 0 ? 1: page.Value;
-            var items = db.News.AsNoTracking().OrderByDescending(x => x.Id);
+            var items = db.News.AsNoTracking().OrderByDescending(x => x.ModifiedDate);
             PagedList<News> list = new(items,pageNumber,pageSize);
             ViewBag.PageSize = pageSize;
             ViewBag.Page = page;
@@ -71,6 +72,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                //int pageNumber = 2;
                 db.News.Attach(model);
                 model.ModifiedDate = DateTime.Now;
                 model.Alias = FoodShop_SWP.Models.Common.Filter.FilterChar(model.Title);
@@ -86,7 +88,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
                 db.Entry(model).Property(x => x.Modifiedby).IsModified = true;
                 db.Entry(model).Property(x => x.IsActive).IsModified = true;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"/*, new { page = pageNumber }*/);
             }
             var validationErrors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
             ViewBag.ValidationErrors = validationErrors;

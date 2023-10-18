@@ -1,0 +1,17 @@
+﻿@model IEnumerable<FoodShop_SWP.Models.EF.ProductCategory>
+
+@if (Model != null && Model.Any())
+{
+    
+        @foreach (var item in Model)
+        {
+        <div class="col-lg-3">
+                @{
+                    string imagePath = "~/Images/product-categorys/"+item.Icon;
+                }
+                <div class="categories__item" style="background-image: url('@Url.Content("~/Images/product-categorys/")@item.Icon');">
+                <h5><a href="@item.Alias">@item.Title</a></h5>
+            </div>
+        </div>
+        }
+}

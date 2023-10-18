@@ -8,113 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Images\blog-one.jpg" />
-    <Content Include="Images\blog-three.jpg" />
-    <Content Include="Images\blog-two.jpg" />
-    <Content Include="Images\burger\Burger-Flava.jpg" />
-    <Content Include="Images\burger\Burger-Shrimp.jpg" />
-    <Content Include="Images\burger\Burger-Zinger.jpg" />
-    <Content Include="Images\category\burger.jpg" />
-    <Content Include="Images\category\c-gahoangkim.jpg" />
-    <Content Include="Images\category\dessert.jpg" />
-    <Content Include="Images\category\Fried-Chicken.jpg" />
-    <Content Include="Images\category\MY-Y-POP.jpg" />
-    <Content Include="Images\category\Rice-F.Chicken.jpg" />
-    <Content Include="Images\category\snack.jpg" />
-    <Content Include="Images\chef-four.jpg" />
-    <Content Include="Images\chef-one.jpg" />
-    <Content Include="Images\chef-three.jpg" />
-    <Content Include="Images\chef-two.jpg" />
-    <Content Include="Images\chicken\fried-chicken\1-gahoangkim.jpg" />
-    <Content Include="Images\chicken\fried-chicken\3_Nuggests.jpg" />
-    <Content Include="Images\chicken\fried-chicken\Fried-Chicken.jpg" />
-    <Content Include="Images\chicken\rosted-chicken\luon-ga.jpg" />
-    <Content Include="Images\chicken\rosted-chicken\MOD-PHI-LE-GA-QUAY.jpg" />
-    <Content Include="Images\combo\2-gahoangkim.jpg" />
-    <Content Include="Images\combo\2-Hash-Browns.jpg" />
-    <Content Include="Images\combo\3-gahoangkim.jpg" />
-    <Content Include="Images\combo\3-Hash-Browns.jpg" />
-    <Content Include="Images\combo\4-Hash-Browns.jpg" />
-    <Content Include="Images\combo\6-gahoangkim.jpg" />
-    <Content Include="Images\combo\6-Hash-Browns.jpg" />
-    <Content Include="Images\combo\a-gahoangkim.jpg" />
-    <Content Include="Images\combo\b-gahoangkim.jpg" />
-    <Content Include="Images\combo\c-gahoangkim.jpg" />
-    <Content Include="Images\combo\D1-new.jpg" />
-    <Content Include="Images\combo\D3-new.jpg" />
-    <Content Include="Images\combo\D4-new.jpg" />
-    <Content Include="Images\combo\D5.jpg" />
-    <Content Include="Images\combo\D6.jpg" />
-    <Content Include="Images\combo\D7-new.jpg" />
-    <Content Include="Images\combo\D8-new.jpg" />
-    <Content Include="Images\combo\Hash-Browns-A.jpg" />
-    <Content Include="Images\combo\Hash-Browns-B.jpg" />
-    <Content Include="Images\combo\Hash-Browns-C.jpg" />
-    <Content Include="Images\combo\Hash-Browns-D.jpg" />
-    <Content Include="Images\counter-bg.png" />
-    <Content Include="Images\dessert-drink\7Up-Can.jpg" />
-    <Content Include="Images\dessert-drink\Aquafina-500ml.jpg" />
-    <Content Include="Images\dessert-drink\eggtart.jpg" />
-    <Content Include="Images\dessert-drink\Lipton.jpg" />
-    <Content Include="Images\dessert-drink\Peach-Tea.jpg" />
-    <Content Include="Images\dessert-drink\Pepsi-Can.jpg" />
-    <Content Include="Images\dessert-drink\pepsi-lime-can.jpg" />
-    <Content Include="Images\dessert-drink\Pumcheese.jpg" />
-    <Content Include="Images\dish-eight.png" />
-    <Content Include="Images\dish-five.png" />
-    <Content Include="Images\dish-four.png" />
-    <Content Include="Images\dish-one.png" />
-    <Content Include="Images\dish-seven.png" />
-    <Content Include="Images\dish-six.png" />
-    <Content Include="Images\dish-three.png" />
-    <Content Include="Images\dish-two.png" />
-    <Content Include="Images\food.jpg" />
-    <Content Include="Images\footer-img.jpg" />
-    <Content Include="Images\logo.png" />
-    <Content Include="Images\menu\dish-1.png" />
-    <Content Include="Images\menu\dish-10.png" />
-    <Content Include="Images\menu\dish-11.png" />
-    <Content Include="Images\menu\dish-12.png" />
-    <Content Include="Images\menu\dish-13.png" />
-    <Content Include="Images\menu\dish-14.png" />
-    <Content Include="Images\menu\dish-15.png" />
-    <Content Include="Images\menu\dish-16.png" />
-    <Content Include="Images\menu\dish-2.png" />
-    <Content Include="Images\menu\dish-3.png" />
-    <Content Include="Images\menu\dish-4.png" />
-    <Content Include="Images\menu\dish-5.png" />
-    <Content Include="Images\menu\dish-6.png" />
-    <Content Include="Images\menu\dish-7.png" />
-    <Content Include="Images\menu\dish-8.png" />
-    <Content Include="Images\menu\dish-9.png" />
-    <Content Include="Images\menu\menu-back.jpg" />
-    <Content Include="Images\pattern-book.png" />
-    <Content Include="Images\pattern-slider-01.png" />
-    <Content Include="Images\pattern-slider.png" />
-    <Content Include="Images\rice\Rice-F.Chicken.jpg" />
-    <Content Include="Images\rice\Rice-Flava.jpg" />
-    <Content Include="Images\rice\Rice-Skewer.jpg" />
-    <Content Include="Images\rice\Rice-Steak.jpg" />
-    <Content Include="Images\rice\Rice-TENDERODS.jpg" />
-    <Content Include="Images\right-arrow.svg" />
-    <Content Include="Images\service-birthday_party.png" />
-    <Content Include="Images\service-business_meeting.png" />
-    <Content Include="Images\service-wedding_party.png" />
-    <Content Include="Images\slider-one.jpg" />
-    <Content Include="Images\snack\BapCai-Tron.jpg" />
-    <Content Include="Images\snack\KhoaiTay-Chien.jpg" />
-    <Content Include="Images\snack\KhoaiTay-Nghien.jpg" />
-    <Content Include="Images\snack\SALAD-HAT-GA-VIEN.jpg" />
-    <Content Include="Images\snack\SALAD-HAT.jpg" />
-    <Content Include="Images\snack\Soup-Rong-Bien.jpg" />
-    <Content Include="Images\spaghetti\MY-Y-POP.jpg" />
-    <Content Include="Images\spinner.gif" />
-    <Content Include="Images\testimonial-1.jpg" />
-    <Content Include="Images\testimonial-2.jpg" />
-    <Content Include="Images\testimonial-3.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.22" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.1.3" />
@@ -130,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Admin\" />
     <Folder Include="Content\" />
   </ItemGroup>
 

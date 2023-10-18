@@ -52,6 +52,7 @@
                     <tr>
                         <th>No.</th>
                         <th>Title</th>
+                        <th>Image</th>
                         <th>Created Date</th>
                         <th></th>
                     </tr>
@@ -66,7 +67,7 @@
                             <tr id="trow_@item.Id">
                                 <td>@i </td>
                                 <td>@item.Title</td>
-                                
+                                <td><img src="~/Images/product-categorys/@item.Icon" width="50" alt="Hình ảnh"></td>
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     <a asp-action="Edit" asp-controller="ProductCategory" asp-route-Id="@item.Id" class="btn btn-sm btn-primary">Edit</a>

@@ -26,7 +26,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
             //    items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
             //}
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
-            var items = db.Products.AsNoTracking().OrderByDescending(x => x.Id);
+            var items = db.Products.AsNoTracking().OrderByDescending(x => x.ModifiedDate);
             PagedList<Product> list = new(items, pageNumber, pageSize);
             ViewBag.PageSize = pageSize;
             ViewBag.Page = page;
@@ -77,7 +77,22 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
                 db.Products.Attach(model);
                 model.ModifiedDate = DateTime.Now;
                 model.Alias = FoodShop_SWP.Models.Common.Filter.FilterChar(model.Title);
-                db.Entry(model).State = EntityState.Modified;
+                db.Entry(model).Property(x => x.Title).IsModified = true;
+                db.Entry(model).Property(x => x.Image).IsModified = true;
+                db.Entry(model).Property(x => x.ProductCode).IsModified = true;
+                db.Entry(model).Property(x => x.ProductCategoryId).IsModified = true;
+                db.Entry(model).Property(x => x.Alias).IsModified = true;
+                db.Entry(model).Property(x => x.Description).IsModified = true;
+                db.Entry(model).Property(x => x.Detail).IsModified = true;
+                db.Entry(model).Property(x => x.Quantity).IsModified = true;
+                db.Entry(model).Property(x => x.Price).IsModified = true;
+                db.Entry(model).Property(x => x.OriginalPrice).IsModified = true;
+                db.Entry(model).Property(x => x.PriceSale).IsModified = true;
+                db.Entry(model).Property(x => x.IsSale).IsModified = true;
+                db.Entry(model).Property(x => x.IsFeature).IsModified = true;
+                db.Entry(model).Property(x => x.ModifiedDate).IsModified = true;
+                db.Entry(model).Property(x => x.Modifiedby).IsModified = true;
+                db.Entry(model).Property(x => x.IsActive).IsModified = true;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

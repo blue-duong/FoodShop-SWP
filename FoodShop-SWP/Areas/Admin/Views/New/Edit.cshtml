@@ -68,14 +68,14 @@
                                     </div>
                                 </div>
                                 @* <label asp-for="Image">Image</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input asp-for="Image" class="form-control" />
-                                    </div>
-                                    <div class="input-group-append">
-                                        <input type="button" value="upload" onclick="browseserver('txtimage');" />
-                                    </div>
-                                </div> *@
+                            <div class="input-group">
+                            <div class="custom-file">
+                            <input asp-for="Image" class="form-control" />
+                            </div>
+                            <div class="input-group-append">
+                            <input type="button" value="upload" onclick="browseserver('txtimage');" />
+                            </div>
+                            </div> *@
                             </div>
                             <div class="form-group">
                                 <label asp-for="Description">Description</label>
@@ -91,13 +91,13 @@
                                     <input type="checkbox" asp-for="IsActive" class="form-control" style="width: 20px; height: 20px; margin-left: 20px;" />
                                 </label>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label asp-for="SeoTitle">Seo Title</label>
                                 <input asp-for="SeoTitle" class="form-control" />
                             </div>
                             <div class="form-group">
-                                <a href="/admin/blog" class="btn btn-danger">Quay lại</a>
+                                <a href="javascript:history.back()" class="btn btn-danger">Quay lại</a>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
 
                 </div>
             }
-            
+
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -139,7 +139,7 @@
 </script>
 @* @section  scripts{
     <script>
-        $(document).ready(function () {
+        $(document).ready(function ()
             CKEDITOR.replace('txtDetail', {
                 customConfig: 'adminlayout/ckeditor/config.js',
                 extraAllowedContent: 'span',

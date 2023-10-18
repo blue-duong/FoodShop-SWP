@@ -61,14 +61,14 @@
                                 <input asp-for="Title" class="form-control" placeholder="Title" />
                                 <span asp-validation-for="Title" class="text-danger"></span>
                             </div>
-                            @* <div class="form-group">
-                                <label asp-for="Image">Image</label>
+                             <div class="form-group">
+                                <label asp-for="Icon">Image</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" id="newImage" class="form-control" />
-                                        <input asp-for="Image" class="form-control" id="imageInput" readonly />
+                                        <input asp-for="Icon" class="form-control" id="imageInput" readonly />
                                     </div>
-                                </div> *@
+                                </div> 
                                 @* <label asp-for="Image">Image</label>
                             <div class="input-group">
                             <div class="custom-file">
@@ -77,7 +77,8 @@
                             <div class="input-group-append">
                             <input type="button" value="upload" onclick="browseserver('txtimage');" />
                             </div>
-                            </div> *@
+                             *@
+                            </div>
                             <div class="form-group">
                                 <label asp-for="Alias">Alias</label>
                                 <input asp-for="Alias" class="form-control" />
