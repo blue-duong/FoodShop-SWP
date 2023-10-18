@@ -26,6 +26,7 @@ namespace FoodShop_SWP.Models.EF
         [StringLength(250)]
         public string Password { get; set; } = null!;
         public int? Role { get; set; }
-        
+
+        public virtual Role? Roles { get; set; }
     }
 }

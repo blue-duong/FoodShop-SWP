@@ -14,6 +14,7 @@ namespace FoodShop_SWP.Models
 
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Role> Roles { get; set; } = null!;
 
         public DbSet<Adv> Advs { get; set; } = null!; 
         public DbSet<Contact> Contacts { get; set; } = null!;
