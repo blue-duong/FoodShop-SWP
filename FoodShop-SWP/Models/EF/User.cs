@@ -1,8 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace FoodShop_SWP.Models.EF
 {
-    [Table("tb_User")]
+    [Table("tb_User")]   
+    
     public class User
     {
         [Key]
@@ -23,5 +27,6 @@ namespace FoodShop_SWP.Models.EF
         public string Password { get; set; } = null!;
         public int? Role { get; set; }
 
+        public virtual Role? Roles { get; set; }
     }
 }
