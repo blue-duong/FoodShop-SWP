@@ -108,5 +108,43 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
             }
             return Json(new { success = false });
         }
+        [Route("blog/IsActive")]
+        [HttpPost]
+        public ActionResult IsActive(int id)
+        {
+            var item = db.News.Find(id);
+            if (item != null)
+            {
+                item.ModifiedDate = DateTime.Now;
+                item.IsActive = !item.IsActive;
+
+                db.Entry(item).Property(x => x.ModifiedDate).IsModified = true;
+                db.Entry(item).Property(x => x.IsActive).IsModified = true;
+                db.SaveChanges();
+                return Json(new { success = true, isAcive = item.IsActive });
+            }
+
+            return Json(new { success = false });
+        }
+        [Route("blog/deleteAll")]
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
+        {
+            if (!string.IsNullOrEmpty(ids))
+            {
+                var items = ids.Split(',');
+                if (items != null && items.Any())
+                {
+                    foreach (var item in items)
+                    {
+                        var obj = db.News.Find(Convert.ToInt32(item));
+                        db.News.Remove(obj);
+                        db.SaveChanges();
+                    }
+                }
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
     }
 }

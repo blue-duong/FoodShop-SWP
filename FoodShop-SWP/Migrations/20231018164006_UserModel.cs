@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodShop_SWP.Migrations
 {
-    public partial class InitialDB : Migration
+    public partial class UserModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -179,17 +179,11 @@ namespace FoodShop_SWP.Migrations
                     IsLockout = table.Column<bool>(type: "bit", nullable: true),
                     Lastname = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: true),
-                    RolesId = table.Column<int>(type: "int", nullable: true)
+                    Role = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tb_User", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_tb_User_Roles_RolesId",
-                        column: x => x.RolesId,
-                        principalTable: "Roles",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -275,10 +269,10 @@ namespace FoodShop_SWP.Migrations
                     IsFeature = table.Column<bool>(type: "bit", nullable: false),
                     IsHot = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    ProductCategoryId = table.Column<int>(type: "int", nullable: true),
                     SeoTitle = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     SeoDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     SeoKeywords = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    ProductCategoryId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -291,7 +285,8 @@ namespace FoodShop_SWP.Migrations
                         name: "FK_tb_Product_tb_ProductCategory_ProductCategoryId",
                         column: x => x.ProductCategoryId,
                         principalTable: "tb_ProductCategory",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -369,15 +364,13 @@ namespace FoodShop_SWP.Migrations
                 name: "IX_tb_ProductImage_ProductId",
                 table: "tb_ProductImage",
                 column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_tb_User_RolesId",
-                table: "tb_User",
-                column: "RolesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Roles");
+
             migrationBuilder.DropTable(
                 name: "tb_Adv");
 
@@ -413,9 +406,6 @@ namespace FoodShop_SWP.Migrations
 
             migrationBuilder.DropTable(
                 name: "tb_Product");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "tb_ProductCategory");

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodShop_SWP.Migrations
 {
     [DbContext(typeof(ShopFoodWebContext))]
-    [Migration("20231018113926_duong2")]
-    partial class duong2
+    [Migration("20231018164006_UserModel")]
+    partial class UserModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

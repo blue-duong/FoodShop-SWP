@@ -15,6 +15,9 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
         [Route("product")]
         public IActionResult Index(string Searchtext, int? page)
         {
+
+
+            
             int pageSize = 6;
             if (page == null)
             {
@@ -28,6 +31,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var items = db.Products.AsNoTracking().OrderByDescending(x => x.ModifiedDate);
             PagedList<Product> list = new(items, pageNumber, pageSize);
+            
             ViewBag.PageSize = pageSize;
             ViewBag.Page = page;
             return View(list);
@@ -53,7 +57,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
+
             var validationErrors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
             ViewBag.ValidationErrors = validationErrors;
             return View(model);
@@ -62,7 +66,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            
+
             ViewBag.ProductCategory = new SelectList(db.ProductCategories.ToList(), "Id", "Title");
             var item = db.Products.Find(id);
             return View(item);
