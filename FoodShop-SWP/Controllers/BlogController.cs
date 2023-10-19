@@ -12,11 +12,11 @@ namespace FoodShop_SWP.Controllers
             _context = new ShopFoodWebContext();
         }
 
-        public IActionResult Blog(string num)
+        public IActionResult Index(string num)
         {
             int pageSize = 6;
             int page = 0;
-            var listBlog = _context.News.ToList();
+            var listBlog = _context.News.Where(x => x.IsActive).ToList();
             page = listBlog.Count % 6 == 0 ? listBlog.Count / 6 : (listBlog.Count / 6) + 1;
             if (!String.IsNullOrEmpty(num))
             {
