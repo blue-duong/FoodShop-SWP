@@ -23,12 +23,13 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
                 page = 1;
             }
             //IEnumerable<News> items = db.News.OrderByDescending(x => x.Id);
+            
+            int pageNumber = page ==null || page < 0 ? 1: page.Value;
+            var items = db.News.AsNoTracking().OrderByDescending(x => x.ModifiedDate);
             //if (!string.IsNullOrEmpty(Searchtext))
             //{
             //    items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
             //}
-            int pageNumber = page ==null || page < 0 ? 1: page.Value;
-            var items = db.News.AsNoTracking().OrderByDescending(x => x.ModifiedDate);
             PagedList<News> list = new(items,pageNumber,pageSize);
             ViewBag.PageSize = pageSize;
             ViewBag.Page = page;

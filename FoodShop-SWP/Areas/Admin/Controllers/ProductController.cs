@@ -118,5 +118,78 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
 
             return Json(new { success = false });
         }
+        [Route("product/IsActive")]
+        [HttpPost]
+        public ActionResult IsActive(int id)
+        {
+            var item = db.Products.Find(id);
+            if (item != null)
+            {
+                
+                item.ModifiedDate = DateTime.Now;
+                item.IsActive = !item.IsActive;
+
+                db.Entry(item).Property(x => x.ModifiedDate).IsModified = true;
+                db.Entry(item).Property(x => x.IsActive).IsModified = true;
+                db.SaveChanges();
+                return Json(new { success = true, isAcive = item.IsActive });
+            }
+
+            return Json(new { success = false });
+        }
+        [Route("product/IsFeature")]
+        [HttpPost]
+        public ActionResult IsFeature(int id)
+        {
+            var item = db.Products.Find(id);
+            if (item != null)
+            {
+                item.ModifiedDate = DateTime.Now;
+                item.IsFeature = !item.IsFeature;
+                db.Entry(item).Property(x => x.ModifiedDate).IsModified = true;
+                db.Entry(item).Property(x => x.IsFeature).IsModified = true;
+                db.SaveChanges();
+                return Json(new { success = true, IsFature = item.IsFeature });
+            }
+
+            return Json(new { success = false });
+        }
+        [Route("product/IsSale")]
+        [HttpPost]
+        public ActionResult IsSale(int id)
+        {
+            var item = db.Products.Find(id);
+            if (item != null)
+            {
+                item.ModifiedDate = DateTime.Now;
+                item.IsSale = !item.IsSale;
+                db.Entry(item).Property(x => x.ModifiedDate).IsModified = true;
+                db.Entry(item).Property(x => x.IsSale).IsModified = true;
+                db.SaveChanges();
+                return Json(new { success = true, Isale = item.IsSale });
+            }
+
+            return Json(new { success = false });
+        }
+        [Route("product/DeleteAll")]
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
+        {
+            if (!string.IsNullOrEmpty(ids))
+            {
+                var items = ids.Split(',');
+                if (items != null && items.Any())
+                {
+                    foreach (var item in items)
+                    {
+                        var obj = db.Products.Find(Convert.ToInt32(item));
+                        db.Products.Remove(obj);
+                        db.SaveChanges();
+                    }
+                }
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
     }
 }
