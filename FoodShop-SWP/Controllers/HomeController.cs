@@ -16,7 +16,6 @@ namespace FoodShop_SWP.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {   
             var listAllProduct = db.Products.Include(p => p.ProductImages).ToList();
