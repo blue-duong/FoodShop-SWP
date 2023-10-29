@@ -12,7 +12,7 @@ namespace FoodShop_SWP.Controllers
             _context = new ShopFoodWebContext();
         }
 
-        public IActionResult Index(string num)
+        public IActionResult Blog(string num)
         {
             int pageSize = 6;
             int page = 0;
