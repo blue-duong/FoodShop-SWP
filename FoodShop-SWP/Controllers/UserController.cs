@@ -6,7 +6,7 @@ namespace FoodShop_SWP.Controllers
 {
     public class UserController : Controller
     {
-        ShopFoodWebContext db = new ShopFoodWebContext();
+        ShopDaiContext db = new ShopDaiContext();
         [HttpGet]
         public IActionResult Login()
         {
@@ -32,10 +32,10 @@ namespace FoodShop_SWP.Controllers
                     // role = 1 là customer role bằng 2 sẽ là admin 
                     if(u.Role == 1)
                     {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
                         return Redirect("/admin/home");
                     }
                 }
@@ -88,6 +88,7 @@ namespace FoodShop_SWP.Controllers
                     u.Enable = true;
                     u.IsLockout = false;
                     u.Role = 1;
+                    u.Wallet = 0;
                     u.ImageUrl = "https://static.vecteezy.com/system/resources/thumbnails/001/840/618/small/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
                     db.Users.Add(u);
                     db.SaveChanges();

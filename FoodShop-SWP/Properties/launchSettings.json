@@ -1,8 +1,17 @@
 {
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "https://localhost:43458",
+      "sslPort": 44351
+    }
+  },
   "profiles": {
     "FoodShop_SWP": {
       "commandName": "Project",
       "launchBrowser": true,
+      "applicationUrl": "https://localhost:7137;",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

@@ -16,6 +16,7 @@ builder.Services.AddDbContext<ShopFoodWebContext>(options => options.UseSqlServe
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
