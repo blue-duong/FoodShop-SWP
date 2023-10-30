@@ -1,6 +1,7 @@
 ﻿
 <!DOCTYPE html>
 <html lang="en">
+@using FoodShop_SWP.Common
 @using Microsoft.AspNetCore.Http;
 <head>
     <meta charset="UTF-8">
@@ -25,6 +26,7 @@
 </head>
 @{
     var CurUser = Context.Session.GetString("Email");
+    var countCart = Context.Session.GetString("countCart") == null ? "0" : Context.Session.GetString("countCart");
 
 }
 <body>
@@ -71,7 +73,23 @@
 
             </div>
         </div>
-        
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="/Product/ProductList">Shop</a></li>
+                <li>
+                    <a href="#">Pages</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="/Product/ProductList">Shop Details</a></li>
+                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
+                    </ul>
+                </li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
         <div id="mobile-menu-wrap"></div>
         <div class="header__top__right__social">
             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -151,7 +169,7 @@
                 <div class="col-lg-1">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="/Cart/Index?handler=ViewCart"><i class="fa fa-shopping-bag"></i> <span>@countCart</span></a></li>
                         </ul>
                     </div>
                 </div>

@@ -29,8 +29,10 @@ namespace FoodShop_SWP.Controllers
                 if (u != null)
                 {
                     HttpContext.Session.SetString("Email", u.Email.ToString());
+                    HttpContext.Session.SetString("UserId", u.Id.ToString());
+
                     // role = 1 là customer role bằng 2 sẽ là admin 
-                    if(u.Role == 1)
+                    if (u.Role == 1)
                     {
                         return RedirectToAction("Index", "Home");
                     }
@@ -45,7 +47,6 @@ namespace FoodShop_SWP.Controllers
                     ViewBag.Password = password;
                     ViewBag.Mess = "Email or password incorrect. Try again!";
                     return View();
-
                 }
             }
             else
