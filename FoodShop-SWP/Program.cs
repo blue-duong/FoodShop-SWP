@@ -1,5 +1,10 @@
 using FoodShop_SWP.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages()
@@ -11,10 +16,14 @@ builder.Services.AddSession();
 ServiceProvider provider = builder.Services.BuildServiceProvider();
 #pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
 var configuration = provider.GetRequiredService<IConfiguration>();
+
 builder.Services.AddDbContext<ShopFoodWebContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 var app = builder.Build();
+
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

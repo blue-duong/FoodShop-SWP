@@ -76,12 +76,12 @@
                             var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
                             var strCheckFeature = item.IsFeature ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
                             var strCheckSale = item.IsSale ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
-                            var strImg = "";
+
                             @* var CheckImage = item.ProductImage.FirstOrDefault(x => x.IsDefault); *@
                             @* if (CheckImage != null)
-                            {
-                                strImg = CheckImage.Image;
-                            } *@
+                    {
+                    strImg = CheckImage.Image;
+                    } *@
                             <tr id="trow_@item.Id">
                                 <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
                                 <td>@i</td>
@@ -93,15 +93,18 @@
                                 }
                                 else
                                 {
-                                <td>@item.ProductCategoryId</td>
+                                    <td>@item.ProductCategoryId</td>
                                 }
                                 <td>@item.Quantity</td>
-                                @if(@item.PriceSale > 0){
+                                @if (@item.PriceSale > 0)
+                                {
                                     <td>@item.PriceSale$</td>
-                                }else{
+                                }
+                                else
+                                {
                                     <td>@item.Price$</td>
                                 }
-                                
+
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td class="text-center">
                                     <a href='#' data-id="@item.Id" class="btnFeature">@Html.Raw(strCheckFeature)</a>
@@ -219,7 +222,7 @@
                     data: { id: id },
                     success: function (rs) {
                         if (rs.success) {
-                            if (rs.IsHome) {
+                            if (rs.isFeature) {
                                 btn.html("<i class='fa fa-check text-success'></i>");
                                 //$(this).find("i").removeClass("fas fa-times text-danger")
                                 //$(this).find("i").addClass("fa fa-check text-success");
@@ -242,7 +245,7 @@
                     data: { id: id },
                     success: function (rs) {
                         if (rs.success) {
-                            if (rs.IsSale) {
+                            if (rs.isSale) {
                                 btn.html("<i class='fa fa-check text-success'></i>");
                                 //$(this).find("i").removeClass("fas fa-times text-danger")
                                 //$(this).find("i").addClass("fa fa-check text-success");
@@ -264,7 +267,7 @@
                     data: { id: id },
                     success: function (rs) {
                         if (rs.success) {
-                            if (rs.isAcive) {
+                            if (rs.isActive) {
                                 btn.html("<i class='fa fa-check text-success'></i>");
                                 //$(this).find("i").removeClass("fas fa-times text-danger")
                                 //$(this).find("i").addClass("fa fa-check text-success");

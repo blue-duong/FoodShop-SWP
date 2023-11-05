@@ -79,8 +79,11 @@ namespace FoodShop_SWP.Controllers
             string oCode = Guid.NewGuid().ToString();
             order.Code = oCode;
             order.Email = email;
+            order.CreatedDate = DateTime.Now;
+            order.ModifiedDate = DateTime.Now;
             order.CustomerName = customerName;
             order.Phone = phone;
+            order.CreatedBy = phone;
             order.Address = address;
             order.TypePayment = paymentType;
             order.Quantity = cart.Count;
@@ -93,7 +96,14 @@ namespace FoodShop_SWP.Controllers
                 OrderDetail detail = new OrderDetail();
                 detail.OrderId = insertedOrder.Id;
                 detail.ProductId = item.Product.Id;
-                detail.Price = item.Product.PriceSale;
+                if(item.Product.PriceSale > 0)
+                {
+                   detail.Price = item.Product.PriceSale;
+                }
+                else
+                {
+                    detail.Price = item.Product.Price;
+                }
                 detail.Quantity = item.Quantity;
                 _context.OrderDetails.Add(detail);
                 _context.SaveChanges();

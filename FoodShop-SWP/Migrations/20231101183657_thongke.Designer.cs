@@ -4,6 +4,7 @@ using FoodShop_SWP.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodShop_SWP.Migrations
 {
     [DbContext(typeof(ShopFoodWebContext))]
-    partial class ShopFoodWebContextModelSnapshot : ModelSnapshot
+    [Migration("20231101183657_thongke")]
+    partial class thongke
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,9 +269,6 @@ namespace FoodShop_SWP.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Status")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("TotalAmount")
@@ -609,25 +608,6 @@ namespace FoodShop_SWP.Migrations
                     b.HasKey("SettingKey");
 
                     b.ToTable("tb_SystemSetting");
-                });
-
-            modelBuilder.Entity("FoodShop_SWP.Models.EF.ThongKe", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<long?>("SoTruyCap")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("ThoiGian")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tb_ThongKe");
                 });
 
             modelBuilder.Entity("FoodShop_SWP.Models.EF.User", b =>

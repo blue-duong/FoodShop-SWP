@@ -17,7 +17,28 @@ namespace FoodShop_SWP.Common
     {
         public Product Product { get; set; } = default!;
         public int Quantity { get; set; }
-        public decimal Total => (decimal)Product.PriceSale * Quantity;
+        public decimal Total
+        {
+            get
+            {
+                if (Product != null)
+                {
+                    if (Product.PriceSale > 0)
+                    {
+                        return (decimal)Product.PriceSale * Quantity;
+                    }
+                    else
+                    {
+                        return (decimal)Product.Price * Quantity;
+                    }
+                }
+                else
+                {
+                    return 0; // Hoặc giá trị mặc định khác mà bạn muốn gán khi 'Product' là null
+                }
+            }
+        }
+
     }
     /// <summary>
     /// This class is used to perform CRUD operations on the cart in the session.

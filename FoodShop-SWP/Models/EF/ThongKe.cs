@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodShop_SWP.Models.EF
 {
-    [Table("ThongKe")]
+    [Table("tb_ThongKe")]
     public class ThongKe
     {
         [Key]

@@ -15,22 +15,21 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
         ShopFoodWebContext db = new ShopFoodWebContext();
         [Route("blog")]
         public IActionResult Index(string Searchtext, int? page)
-        {   
-
+        {
+            IEnumerable<News> items = db.News.OrderByDescending(x => x.ModifiedDate);
             int pageSize = 6;
             if (page == null)
             {
                 page = 1;
             }
-            //IEnumerable<News> items = db.News.OrderByDescending(x => x.Id);
-            
-            int pageNumber = page ==null || page < 0 ? 1: page.Value;
-            var items = db.News.AsNoTracking().OrderByDescending(x => x.ModifiedDate);
-            //if (!string.IsNullOrEmpty(Searchtext))
-            //{
-            //    items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
-            //}
-            PagedList<News> list = new(items,pageNumber,pageSize);
+
+            int pageNumber = page == null || page < 0 ? 1 : page.Value;
+            //var items = db.News.AsNoTracking().OrderByDescending(x => x.ModifiedDate);
+            if (!string.IsNullOrEmpty(Searchtext))
+            {
+                items = items.Where(x => x.Alias.Contains(Searchtext) || x.Title.Contains(Searchtext));
+            }
+            PagedList<News> list = new(items, pageNumber, pageSize);
             ViewBag.PageSize = pageSize;
             ViewBag.Page = page;
             return View(list);
@@ -45,7 +44,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Add(News model)
-        {   
+        {
             if (ModelState.IsValid)
             {
                 model.CreatedDate = DateTime.Now;
@@ -62,7 +61,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
         [Route("blog/Edit")]
         [HttpGet]
         public IActionResult Edit(int id)
-        {   
+        {
             var item = db.News.Find(id);
             return View(item);
         }
@@ -122,7 +121,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
                 db.Entry(item).Property(x => x.ModifiedDate).IsModified = true;
                 db.Entry(item).Property(x => x.IsActive).IsModified = true;
                 db.SaveChanges();
-                return Json(new { success = true, isAcive = item.IsActive });
+                return Json(new { success = true, isActive = item.IsActive });
             }
 
             return Json(new { success = false });

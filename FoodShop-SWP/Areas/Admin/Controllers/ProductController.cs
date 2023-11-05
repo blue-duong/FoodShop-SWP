@@ -17,7 +17,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
         {
 
 
-            
+
             int pageSize = 6;
             if (page == null)
             {
@@ -31,7 +31,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
             int pageNumber = page == null || page < 0 ? 1 : page.Value;
             var items = db.Products.AsNoTracking().OrderByDescending(x => x.ModifiedDate);
             PagedList<Product> list = new(items, pageNumber, pageSize);
-            
+
             ViewBag.PageSize = pageSize;
             ViewBag.Page = page;
             return View(list);
@@ -125,14 +125,13 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
             var item = db.Products.Find(id);
             if (item != null)
             {
-                
                 item.ModifiedDate = DateTime.Now;
                 item.IsActive = !item.IsActive;
 
                 db.Entry(item).Property(x => x.ModifiedDate).IsModified = true;
                 db.Entry(item).Property(x => x.IsActive).IsModified = true;
                 db.SaveChanges();
-                return Json(new { success = true, isAcive = item.IsActive });
+                return Json(new { success = true, isActive = item.IsActive });
             }
 
             return Json(new { success = false });
@@ -149,7 +148,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
                 db.Entry(item).Property(x => x.ModifiedDate).IsModified = true;
                 db.Entry(item).Property(x => x.IsFeature).IsModified = true;
                 db.SaveChanges();
-                return Json(new { success = true, IsFature = item.IsFeature });
+                return Json(new { success = true, isFeature = item.IsFeature });
             }
 
             return Json(new { success = false });
@@ -166,7 +165,7 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
                 db.Entry(item).Property(x => x.ModifiedDate).IsModified = true;
                 db.Entry(item).Property(x => x.IsSale).IsModified = true;
                 db.SaveChanges();
-                return Json(new { success = true, Isale = item.IsSale });
+                return Json(new { success = true, isSale = item.IsSale });
             }
 
             return Json(new { success = false });

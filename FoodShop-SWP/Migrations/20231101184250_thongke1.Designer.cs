@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodShop_SWP.Migrations
 {
     [DbContext(typeof(ShopFoodWebContext))]
-    [Migration("20231018164006_UserModel")]
-    partial class UserModel
+    [Migration("20231101184250_thongke1")]
+    partial class thongke1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -608,6 +608,25 @@ namespace FoodShop_SWP.Migrations
                     b.HasKey("SettingKey");
 
                     b.ToTable("tb_SystemSetting");
+                });
+
+            modelBuilder.Entity("FoodShop_SWP.Models.EF.ThongKe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<long?>("SoTruyCap")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("ThoiGian")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tb_ThongKe");
                 });
 
             modelBuilder.Entity("FoodShop_SWP.Models.EF.User", b =>
