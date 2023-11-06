@@ -94,6 +94,8 @@ namespace FoodShop_SWP.Controllers
             foreach (CartItem item in cart.CartItems)
             {
                 OrderDetail detail = new OrderDetail();
+                Product product = _context.Products.FirstOrDefault(x => x.Id == item.Product.Id);
+                product.Quantity = product.Quantity - item.Quantity;
                 detail.OrderId = insertedOrder.Id;
                 detail.ProductId = item.Product.Id;
                 if(item.Product.PriceSale > 0)
@@ -105,6 +107,7 @@ namespace FoodShop_SWP.Controllers
                     detail.Price = item.Product.Price;
                 }
                 detail.Quantity = item.Quantity;
+                _context.Products.Update(product);
                 _context.OrderDetails.Add(detail);
                 _context.SaveChanges();
             }

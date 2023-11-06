@@ -64,7 +64,7 @@
 
                                 @foreach (ProductCategory cate in ViewBag.cates)
                                 {
-                                    <li><a href="./ProductList?search=@ViewBag.search&cid=@cate.Id">@cate.Title</a></li>
+                                    <li><a href="./ProductList?search=@ViewBag.search&cid=@cate.Id" @(ViewBag.cid == cate.Id ? "style=font-weight:bold":"")>@cate.Title</a></li>
                                 }
                             </ul>
                         </div>
