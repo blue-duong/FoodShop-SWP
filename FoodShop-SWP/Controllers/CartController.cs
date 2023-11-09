@@ -51,7 +51,7 @@ namespace FoodShop_SWP.Controllers
                 case "ProductList":
                     return RedirectToAction("ProductList", "Product");
                 case "ProductDetail":
-                    return Redirect("/Product/ProductDetail?id="+productId);
+                    return Redirect("/Product/ProductDetail?id=" + productId);
                 case "Home":
                     return RedirectToAction("Index", "Home");
                 case "ViewCart":
@@ -98,9 +98,9 @@ namespace FoodShop_SWP.Controllers
                 product.Quantity = product.Quantity - item.Quantity;
                 detail.OrderId = insertedOrder.Id;
                 detail.ProductId = item.Product.Id;
-                if(item.Product.PriceSale > 0)
+                if (item.Product.PriceSale > 0)
                 {
-                   detail.Price = item.Product.PriceSale;
+                    detail.Price = item.Product.PriceSale;
                 }
                 else
                 {

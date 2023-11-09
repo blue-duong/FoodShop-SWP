@@ -111,8 +111,8 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="btnLuu">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnLuu">Save</button>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -133,11 +133,11 @@
                 var id = $('#txtOrderId').val();
                 var tt = $('#ddTrangThai').val();
                 $.ajax({
-                    url: '/admin/order/UpdateTT',
+                    url: '/admin/order/UpdateStatus',
                     type: 'POST',
-                    data: { id: id, trangthai: tt },
+                    data: { id: id, status: tt },
                     success: function (res) {
-                        if (res.Success) {
+                        if (res.Success = true) {
                             location.reload();
                         }
                     }

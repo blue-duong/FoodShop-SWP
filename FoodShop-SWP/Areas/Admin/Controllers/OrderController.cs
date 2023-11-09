@@ -50,15 +50,15 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
             List<OrderDetail> items = db.OrderDetails.Include(x => x.Product).Where(x => x.OrderId == id).ToList();
             return PartialView(items);
         }
-        [Route("Order/UpdateTT")]
+        [Route("Order/UpdateStatus")]
         [HttpPost]
-        public ActionResult UpdateTT(int id, int trangthai)
+        public ActionResult UpdateStatus(int id, int status)
         {
             var item = db.Orders.Find(id);
             if (item != null)
             {
                 db.Orders.Attach(item);
-                item.Status = trangthai;
+                item.Status = status;
                 db.Entry(item).Property(x => x.Status).IsModified = true;
                 db.SaveChanges();
                 return Json(new { message = "Success", Success = true });

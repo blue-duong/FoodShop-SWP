@@ -56,7 +56,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div>\
         <!-- /.card-body -->
         
         <!-- /.card-footer-->
@@ -99,12 +99,19 @@
             var arrdoanhThu = [];
             var arrloiNhuan = [];
             var arrdate = [];
+            var currentDate = new Date();
+            var endDate = new Date();
+            endDate.setDate(endDate.getDate());
+            currentDate.setDate(currentDate.getDate() - 7);
+            var formattedFromDate = currentDate.toISOString().slice(0, 10);
+            var formattedToDate = endDate.toISOString().slice(0, 10);
             $.ajax({
                 url: '/admin/Statistical/GetStatistical',
                 type: 'GET',
-                data: {  fromdate: '', todate: ''  },
+                data: { fromdate: formattedFromDate, todate: formattedToDate },
                 success: function (rs) {
-
+                    console.log(formattedFromDate);
+                    console.log(formattedToDate);
                     $.each(rs.data, function (i, item) {
                         var strdate = moment(item.date).format('DD/MM/yyyy');
                         arrdate.push(strdate);

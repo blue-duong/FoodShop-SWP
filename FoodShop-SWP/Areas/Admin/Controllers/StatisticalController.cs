@@ -31,6 +31,9 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
                             Price = od.Price,
                             OriginalPrice = p.OriginalPrice
                         };
+            var timeStart = DateTime.Now.AddDays(-7);
+            fromDate = timeStart.ToString("dd/MM/yyyy");
+
             if (!string.IsNullOrEmpty(fromDate) && DateTime.TryParseExact(fromDate, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out var startDate))
             {
                 query = query.Where(x => x.CreatedDate >= startDate);
