@@ -91,11 +91,35 @@
                         }
                     </tbody>
                 </table>
-                <h2>Total bill: @cart.Total</h2>
-                <a class="btn btn-primary" href="/Cart/Checkout">Checkout</a>
+                @if (!cart.CartItems.Any())
+                {
+                    <div id="emptyCartMessage" style="color: red; font-size: 18px; font-weight: bold; margin-top: 10px;">
+                        Your cart has no products. Click <a href="/Product/ProductList">here</a> to add products
+                    </div>
+                }
+                else
+                {
+                    <h2>Total bill: @cart.Total</h2>
+                    <a class="btn btn-primary" href="/Cart/Checkout" onclick="return checkCart()">Checkout</a>
+                }
             </div>
         </div>
     </section>
+
+    <script>
+        function checkCart() {
+            // Kiểm tra xem giỏ hàng có trống không
+            var emptyCart = @(!cart.CartItems.Any()).ToString().toLowerCase();
+
+            if (emptyCart) {
+                // Hiển thị thông báo nếu giỏ hàng trống
+                alert("Gio hang khong duoc rong");
+                return false; // Ngăn chặn chuyển hướng nếu giỏ hàng trống
+            }
+
+            return true; // Cho phép chuyển hướng nếu giỏ hàng không trống
+        }
+    </script>
     <!-- Product Section End -->
     <!-- Footer Section Begin -->
     <!-- Footer Section End -->

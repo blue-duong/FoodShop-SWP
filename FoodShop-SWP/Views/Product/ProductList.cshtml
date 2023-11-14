@@ -197,6 +197,15 @@
             </div>
         </div>
     </section>
+    <script>
+        // Kiểm tra trạng thái thông báo
+        var checkoutStatus = localStorage.getItem("checkoutStatus");
+        if (checkoutStatus === "success") {
+            alert("Checkout successfully");
+            // Xóa trạng thái để tránh hiển thị lại thông báo khi tải lại trang
+            localStorage.removeItem("checkoutStatus");
+        }
+    </script>
     <!-- Product Section End -->
     <!-- Footer Section Begin -->
     <!-- Footer Section End -->

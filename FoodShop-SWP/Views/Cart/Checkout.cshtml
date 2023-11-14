@@ -84,7 +84,7 @@
                     </tbody>
                 </table>
                 <h2>Total bill: @cart.Total</h2>
-                <form method="post" action="/Cart/Checkout">
+                <form method="post" action="/Cart/Checkout" onsubmit="return validateForm()">
                     <label>Customer Name:</label>
                     <input type="text" name="customerName" value="" class="form-control" />
                     <label>Email:</label>
@@ -95,11 +95,47 @@
                     <input type="text" name="address" value="" class="form-control" />
                     <label>Payment Type:</label>
                     <input type="radio" name="paymentType" value="1" checked /> COD<br />
-                    <button class="btn btn-primary" type="submit">Checkout</button>
+                    <button class="btn btn-primary" id="checkOutButton" type="submit">Checkout</button>
                 </form>
             </div>
         </div>
     </section>
+    <script>
+        document.getElementById("checkOutButton").addEventListener("click", function () {
+            // Xử lý khi nút được nhấn
+            localStorage.setItem("checkoutStatus", "success");
+            window.location.href = "@Url.Action("ProductList", "Product")"; // Điều hướng về trang Home
+        });
+    </script>
+    <script>
+        function validateForm() {
+            var customerName = document.getElementsByName("customerName")[0].value;
+            var email = document.getElementsByName("email")[0].value;
+            var phone = document.getElementsByName("phone")[0].value;
+            var address = document.getElementsByName("address")[0].value;
+
+            if (customerName === "" || email === "" || phone === "" || address === "") {
+                alert("Bạn không được ở trống");
+                return false; // Ngăn chặn sự kiện submit nếu có trường trống
+            }
+
+            return true; // Cho phép sự kiện submit nếu tất cả các trường đều được điền
+        }
+        document.getElementById("checkOutButton").addEventListener("click", function (event) {
+            var customerName = document.getElementsByName("customerName")[0].value;
+            var email = document.getElementsByName("email")[0].value;
+            var phone = document.getElementsByName("phone")[0].value;
+            var address = document.getElementsByName("address")[0].value;
+
+            if (customerName === "" || email === "" || phone === "" || address === "") {
+                // Ngăn chặn sự kiện submit nếu có trường trống
+                event.preventDefault();
+                alert("Vui lòng điền đầy đủ thông tin");
+                window.location.href = "/Cart/Checkout";
+            }
+        });
+    </script>
+
     <!-- Product Section End -->
     <!-- Footer Section Begin -->
     <!-- Footer Section End -->

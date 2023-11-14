@@ -73,6 +73,11 @@ namespace FoodShop_SWP.Controllers
         [HttpPost]
         public IActionResult Checkout(string customerName, string email, string phone, string address, int paymentType)
         {
+            if (string.IsNullOrWhiteSpace(customerName) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(phone) || string.IsNullOrWhiteSpace(address))
+            {
+                ViewBag.mess = "Please enter complete information!";
+                return RedirectToAction("Checkout"); // Chuyển hướng người dùng trở lại giỏ hàng hoặc trang tương ứng
+            }
             cartCRUD = new CartCRUD(_context, HttpContext.Session);
             Cart cart = cartCRUD.GetCart();
             Order order = new Order();
@@ -114,7 +119,7 @@ namespace FoodShop_SWP.Controllers
             ViewBag.cart = cartCRUD.GetCart();
             ViewBag.mess = "Checkout successfully. The product will be shipped to you soon!";
             cartCRUD.ClearCart();
-            return View();
+            return RedirectToAction("ProductList","Product");
         }
     }
 }

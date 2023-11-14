@@ -38,7 +38,7 @@ namespace FoodShop_SWP.Controllers
                     }
                     else
                     {
-                        return Redirect("/admin/home");
+                        return Redirect("/admin/statistical");
                     }
                 }
                 else

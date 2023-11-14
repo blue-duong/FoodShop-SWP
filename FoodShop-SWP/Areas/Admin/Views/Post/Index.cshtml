@@ -82,7 +82,7 @@
                         foreach (var item in Model)
                         {
 
-                            var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            var strCheck = item.IsActive ? "<i class='fa-thin fa-square-check text-success'></i>" : "<i class='fa-thin fa-square text-danger'></i>";
                             <tr id="trow_@item.Id">
                                 <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
                                 <td>@i </td>
@@ -201,11 +201,11 @@
                     success: function (rs) {
                         if (rs.success) {
                             if (rs.isActive) {
-                                btn.html("<i class='fa fa-check text-success'></i>");
+                                btn.html("<i class='fa-thin fa-square-check text-success'></i>");
                                 //$(this).find("i").removeClass("fas fa-times text-danger")
                                 //$(this).find("i").addClass("fa fa-check text-success");
                             } else {
-                                btn.html("<i class='fas fa-times text-danger'></i>");
+                                btn.html("<i class='fa-thin fa-square text-danger'></i>");
                             }
                         }
 
