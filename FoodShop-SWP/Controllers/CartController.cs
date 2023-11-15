@@ -88,7 +88,7 @@ namespace FoodShop_SWP.Controllers
             order.ModifiedDate = DateTime.Now;
             order.CustomerName = customerName;
             order.Phone = phone;
-            order.CreatedBy = phone;
+            order.CreatedBy = HttpContext.Session.GetString("UserId");
             order.Address = address;
             order.TypePayment = paymentType;
             if (paymentType != 1)
