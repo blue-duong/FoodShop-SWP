@@ -73,7 +73,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Detail">Detail</label>
-                            <textarea asp-for="Detail" class="form-control"></textarea>
+                            <textarea id="summernoteEditor" asp-for="Detail" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
                             <label asp-for="IsActive" style="display: inline-block; width: auto;">
@@ -116,18 +116,23 @@
 @section  scripts{
     <script>
         $(document).ready(function () {
-            CKEDITOR.replace('txtDetail', {
-                customConfig: 'adminlayout/ckeditor/config.js',
-                extraAllowedContent: 'span',
+            $('#summernoteEditor').summernote({
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['height', ['height']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
             });
         });
-        function BrowseServer(field) {
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (fileUrl) {
-                document.getElementById(field).value = fileUrl;
-            };
-            finder.popup();
-        }
+        
+
 
     </script>
     }

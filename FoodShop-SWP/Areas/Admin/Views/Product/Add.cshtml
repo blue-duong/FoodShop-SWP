@@ -96,9 +96,8 @@
                                             @Html.ValidationMessageFor(x => x.Description, null, new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Detail</label>
-                                            @Html.TextAreaFor(x => x.Detail, new { @class = "form-control"/* , @id = "txtDetail"  */})
-                                            @Html.ValidationMessageFor(x => x.Detail, null, new { @class = "text-danger" })
+                                            <label asp-for="Detail">Detail</label>
+                                            <textarea id="summernoteEditor" asp-for="Detail" class="form-control"></textarea>
                                         </div>
                                         <div class="row">
                                             
@@ -245,6 +244,20 @@
 @section  scripts{
     <script>
         $(document).ready(function () {
+            $('#summernoteEditor').summernote({
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['height', ['height']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
             $('.auto').autoNumeric('init');
             $('#demoPrice').bind('blur focusout keypress keyup', function () {
                 var demoGet = $('#demoPrice').autoNumeric('get');
@@ -261,10 +274,7 @@
                 $('#OriginalPrice').val(demoGet);
                 $('#OriginalPrice').autoNumeric('set', demoGet);
             });
-            CKEDITOR.replace('txtDetail', {
-                customConfig: '/content/ckeditor/config.js',
-                extraAllowedContent: 'span',
-            });
+            
 
             $('body').on('click', '.btnXoaAnh', function () {
                 var conf = confirm('Bạn có muốn xóa ảnh này không?');
