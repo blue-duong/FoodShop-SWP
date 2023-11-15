@@ -25,20 +25,20 @@ namespace FoodShop_SWP.Controllers
             index = index - 1;
             int pagesize = 9;
             int totalPage = 0;
-            List<Product> saleProduct = db.Products.Include(x => x.ProductCategory).Where(x => x.IsSale == true).ToList();
-            List<Product> lastProduct = db.Products.Include(x => x.ProductCategory).Where(x => x.IsSale == true).OrderByDescending(x => x.CreatedDate).Skip(0).Take(5).ToList();
+            List<Product> saleProduct = db.Products.Include(x => x.ProductCategory).Where(x => x.IsSale == true && x.Quantity > 0).ToList();
+            List<Product> lastProduct = db.Products.Include(x => x.ProductCategory).Where(x => x.IsSale == true && x.Quantity > 0).OrderByDescending(x => x.CreatedDate).Skip(0).Take(5).ToList();
             List<ProductCategory> cates = db.ProductCategories.ToList();
             List<Product> pl = new List<Product>();
             if (cid == null)
             {
-                int totalRecord = db.Products.Include(x => x.ProductCategory).Where(x => x.Title.Contains(search)).Count();
+                int totalRecord = db.Products.Include(x => x.ProductCategory).Where(x => x.Title.Contains(search) && x.Quantity > 0).Count();
                 pl = db.Products.Where(x => x.Title.Contains(search)).Skip(index.Value * pagesize).Take(pagesize).ToList();
                 totalPage = (int)Math.Ceiling((double)totalRecord / pagesize);
 
             }
             else
             {
-                int totalRecord = db.Products.Include(x => x.ProductCategory).Where(x => x.Title.Contains(search) && x.ProductCategoryId == cid).Count();
+                int totalRecord = db.Products.Include(x => x.ProductCategory).Where(x => x.Title.Contains(search) && x.ProductCategoryId == cid && x.Quantity > 0).Count();
                 totalPage = (int)Math.Ceiling((double)totalRecord / pagesize);
                 pl = db.Products.Where(x => x.Title.Contains(search) && x.ProductCategoryId == cid).Skip(index.Value * pagesize).Take(pagesize).ToList();
 

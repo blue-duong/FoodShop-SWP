@@ -86,7 +86,7 @@
                             <tr id="trow_@item.Id">
                                 <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
                                 <td>@i </td>
-                                <td><img src="~/Images/posts/@item.Image" width="70" alt="Hình ảnh"></td>
+                                <td><img src="@item.Image" width="70" alt="Hình ảnh"></td>
                                 <td>@item.Title</td>
                                 <td class="text-center">
                                     <a href='#' data-id="@item.Id" class="btnActive">@Html.Raw(strCheck)</a>
