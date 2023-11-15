@@ -91,6 +91,11 @@ namespace FoodShop_SWP.Controllers
             order.CreatedBy = phone;
             order.Address = address;
             order.TypePayment = paymentType;
+            if (paymentType != 1)
+            {
+                order.Status = 2;
+            }
+            order.Status = 1;
             order.Quantity = cart.Count;
             order.TotalAmount = cart.Total;
             _context.Orders.Add(order);
