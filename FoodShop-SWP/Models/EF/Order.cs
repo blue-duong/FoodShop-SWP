@@ -25,7 +25,6 @@ namespace FoodShop_SWP.Models.EF
         public int? Quantity { get; set; }
         public int? TypePayment { get; set; }
         public int? Status { get; set; }
-        public string CreatedBy { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

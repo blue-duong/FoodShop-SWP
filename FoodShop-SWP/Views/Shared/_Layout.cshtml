@@ -49,22 +49,13 @@
             <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
         <div class="humberger__menu__widget">
-            <div class="header__top__right__social">
-                @if (CurUser == null)
-                {
-                }
-                else
-                {
-                    <a style="text-decoration: none; color:black;" href="/Order/order"><i class="fa fa-user"></i> MyOrder</a>
-                }
-            </div>
             <div class="header__top__right__language">
                 @if (CurUser == null)
                 {
                 }
                 else
                 {
-                    <a style="text-decoration: none; color:black;" href="/User/ChangePassword"><i class="fa fa-user"></i> ChangePassword</a>
+                    <a href="/User/ChangePassword"><i class="fa fa-user"></i> ChangePassword</a>
                 }
             </div>
             <div class="header__top__right__auth">
@@ -129,13 +120,10 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
-                                @if (CurUser == null)
-                                {
-                                }
-                                else
-                                {
-                                    <a style="text-decoration: none; color:black;" href="/Order/order"><i class="fa fa-user"></i> MyOrder</a>
-                                }
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             <div class="header__top__right__language">
                                 @if (CurUser == null)
@@ -143,7 +131,7 @@
                                 }
                                 else
                                 {
-                                    <a style="text-decoration: none; color:black;" href="/User/ChangePassword"><i class="fa fa-user"></i> ChangePassword</a>
+                                    <a href="/User/ChangePassword"><i class="fa fa-user"></i> ChangePassword</a>
                                 }
                             </div>
                             <div class="header__top__right__auth">
