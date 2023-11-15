@@ -1,12 +1,20 @@
 ﻿using FoodShop_SWP.Common;
 using FoodShop_SWP.Models;
+using FoodShop_SWP.Models.Common;
 using FoodShop_SWP.Models.EF;
+using FoodShop_SWP.Ultis;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodShop_SWP.Controllers
 {
     public class CartController : Controller
     {
+        private readonly IVnPayService _vnPayService;
+
+        public CartController(IVnPayService vnPayService)
+        {
+            _vnPayService = vnPayService;
+        }
         public CartCRUD? cartCRUD;
         ShopFoodWebContext _context = new ShopFoodWebContext();
         private readonly ISession _session;
@@ -73,11 +81,6 @@ namespace FoodShop_SWP.Controllers
         [HttpPost]
         public IActionResult Checkout(string customerName, string email, string phone, string address, int paymentType)
         {
-            if (string.IsNullOrWhiteSpace(customerName) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(phone) || string.IsNullOrWhiteSpace(address))
-            {
-                ViewBag.mess = "Please enter complete information!";
-                return RedirectToAction("Checkout"); // Chuyển hướng người dùng trở lại giỏ hàng hoặc trang tương ứng
-            }
             cartCRUD = new CartCRUD(_context, HttpContext.Session);
             Cart cart = cartCRUD.GetCart();
             Order order = new Order();
@@ -93,33 +96,53 @@ namespace FoodShop_SWP.Controllers
             order.TypePayment = paymentType;
             order.Quantity = cart.Count;
             order.TotalAmount = cart.Total;
-            _context.Orders.Add(order);
-            _context.SaveChanges();
-            Order insertedOrder = _context.Orders.FirstOrDefault(x => x.Code == oCode);
-            foreach (CartItem item in cart.CartItems)
+            if (paymentType == 1)
             {
-                OrderDetail detail = new OrderDetail();
-                Product product = _context.Products.FirstOrDefault(x => x.Id == item.Product.Id);
-                product.Quantity = product.Quantity - item.Quantity;
-                detail.OrderId = insertedOrder.Id;
-                detail.ProductId = item.Product.Id;
-                if (item.Product.PriceSale > 0)
-                {
-                    detail.Price = item.Product.PriceSale;
-                }
-                else
-                {
-                    detail.Price = item.Product.Price;
-                }
-                detail.Quantity = item.Quantity;
-                _context.Products.Update(product);
-                _context.OrderDetails.Add(detail);
+                _context.Orders.Add(order);
                 _context.SaveChanges();
+                Order insertedOrder = _context.Orders.FirstOrDefault(x => x.Code == oCode);
+                foreach (CartItem item in cart.CartItems)
+                {
+                    OrderDetail detail = new OrderDetail();
+                    detail.OrderId = insertedOrder.Id;
+                    detail.ProductId = item.Product.Id;
+                    if (item.Product.PriceSale > 0)
+                    {
+                        detail.Price = item.Product.PriceSale;
+                    }
+                    else
+                    {
+                        detail.Price = item.Product.Price;
+                    }
+                    detail.Quantity = item.Quantity;
+                    _context.OrderDetails.Add(detail);
+                    _context.SaveChanges();
+                }
+                ViewBag.cart = cartCRUD.GetCart();
+                ViewBag.mess = "Checkout successfully. The product will be shipped to you soon!";
+                cartCRUD.ClearCart();
+                return View();
             }
-            ViewBag.cart = cartCRUD.GetCart();
-            ViewBag.mess = "Checkout successfully. The product will be shipped to you soon!";
-            cartCRUD.ClearCart();
-            return RedirectToAction("ProductList","Product");
+            else
+            {
+                PaymentInformationModel model = new PaymentInformationModel()
+                {
+                    Name = "Thanh toán cho đơn hàng",
+                    Amount = Double.Parse(cart.Total.ToString()),
+                };
+                var url = _vnPayService.CreatePaymentUrl(model, HttpContext);
+
+                return Redirect(url);
+            }
+
+        }
+
+        [Route("/PaymentCallback")]
+        public IActionResult PaymentCallback()
+        {
+            var response = _vnPayService.PaymentExecute(Request.Query);
+
+            return Json(response);
         }
     }
 }

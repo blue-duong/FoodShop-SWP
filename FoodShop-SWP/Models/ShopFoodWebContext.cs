@@ -26,6 +26,9 @@ namespace FoodShop_SWP.Models
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public DbSet<Subscribe> Subscribes {  get; set; } = null!;
+
+        public DbSet<Feedback> Feedbacks { get; set; } = null!;
+        public DbSet<Favourite> Favourites { get; set; } = null !;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Thiết lập quan hệ giữa Product và ProductCategory
@@ -40,7 +43,7 @@ namespace FoodShop_SWP.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-IL9OFDR\\MAYAO;Database=FoodShopWeb;Trusted_Connection=True;MultipleActiveResultSets=true;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=FoodShopWeb;Trusted_Connection=True;MultipleActiveResultSets=true;");
             }
             
         }

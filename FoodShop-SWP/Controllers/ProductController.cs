@@ -58,9 +58,10 @@ namespace FoodShop_SWP.Controllers
         {
             Product product = db.Products.Include(x => x.ProductCategory).SingleOrDefault(x => x.Id == id);
             List<Product> relatedProduct = db.Products.Include(x => x.ProductCategory).Where(x => x.ProductCategoryId == product.ProductCategoryId).Skip(0).Take(4).ToList();
-
+            List<Feedback> feedbacks = db.Feedbacks.Include(n => n.user).Where(n => n.ProductID == id).ToList();
             ViewBag.product = product;
             ViewBag.relatedProduct = relatedProduct;
+            ViewBag.feedbacks = feedbacks;
             return View();
         }
     }

@@ -8,7 +8,7 @@
             <div class="featured__item">
                 <div class="featured__item__pic " style="background-image: url('@Url.Content("~/Images/products/")@item.Image'); ">
                     <ul class="featured__item__pic__hover">
-                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                        <li><a asp-action="addtofavourite" asp-controller="Home" asp-route-id="@item.Id"><i class="fa fa-heart"></i></a></li>
                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                         <li><a href="/Cart/Index?productId=@item.Id&handler=add&quantity=1&url=Home"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>
