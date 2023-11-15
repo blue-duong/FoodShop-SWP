@@ -93,6 +93,8 @@ namespace FoodShop_SWP.Controllers
             order.TypePayment = paymentType;
             order.Quantity = cart.Count;
             order.TotalAmount = cart.Total;
+            order.CreatedBy = HttpContext.Session.GetString("UserId");
+            order.Status = 1;
             _context.Orders.Add(order);
             _context.SaveChanges();
             Order insertedOrder = _context.Orders.FirstOrDefault(x => x.Code == oCode);

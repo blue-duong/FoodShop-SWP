@@ -38,7 +38,6 @@ namespace FoodShop_SWP.Controllers
             var blog = _context.News.FirstOrDefault(item => item.Id == id);
             if (blog != null)
             {
-                ViewBag.Detail = blog.Detail;
                 ViewData["blog"] = blog;
             }
             else

@@ -12,7 +12,7 @@ namespace FoodShop_SWP.ViewComponents
         }
         public IViewComponentResult Invoke(int cateId)
         {
-            var items = _context.Products.Where(x => x.IsFeature && x.IsActive).Where(x => x.Quantity>0).Take(12).ToList();
+            var items = _context.Products.Where(x => x.IsFeature && x.IsActive).Where(x => x.Quantity>0).Take(8).ToList();
             return View(items);
         }
     }
