@@ -69,10 +69,10 @@
                                             <label asp-for="Image">Image</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input type="file" asp-for="Image" id="txtImage" class="form-control" />
+                                                    @Html.TextBoxFor(x => x.Image, new { @class = "form-control", @id = "imageURL" })
                                                 </div>
                                                 <div class="input-group-append">
-                                                    <input type="button" value="upload" onclick="browseserver('txtimage');" />
+                                                    <input asp-for="Image" type="button" value="upload" onclick="openElFinder(this);" data-editor="your_editor_value" />
                                                 </div>
                                             </div>
                                         </div>
@@ -96,9 +96,8 @@
                                             @Html.ValidationMessageFor(x => x.Description, null, new { @class = "text-danger" })
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Detail</label>
-                                            @Html.TextAreaFor(x => x.Detail, new { @class = "form-control"/* , @id = "txtDetail"  */})
-                                            @Html.ValidationMessageFor(x => x.Detail, null, new { @class = "text-danger" })
+                                            <label asp-for="Detail">Detail</label>
+                                            <textarea id="summernoteEditor" asp-for="Detail" class="form-control"></textarea>
                                         </div>
                                         <div class="row">
                                             
@@ -245,84 +244,121 @@
 @section  scripts{
     <script>
         $(document).ready(function () {
-            $('.auto').autoNumeric('init');
-            $('#demoPrice').bind('blur focusout keypress keyup', function () {
-                var demoGet = $('#demoPrice').autoNumeric('get');
-                $('#Price').val(demoGet);
-                $('#Price').autoNumeric('set', demoGet);
+            $('#summernoteEditor').summernote({
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['height', ['height']],
+                    ['insert', ['link', 'picture', 'video', 'elfinder']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
             });
-            $('#demoPriceSale').bind('blur focusout keypress keyup', function () {
-                var demoGet = $('#demoPriceSale').autoNumeric('get');
-                $('#PriceSale').val(demoGet);
-                $('#PriceSale').autoNumeric('set', demoGet);
-            });
-            $('#demoOriginalPrice').bind('blur focusout keypress keyup', function () {
-                var demoGet = $('#demoOriginalPrice').autoNumeric('get');
-                $('#OriginalPrice').val(demoGet);
-                $('#OriginalPrice').autoNumeric('set', demoGet);
-            });
-            CKEDITOR.replace('txtDetail', {
-                customConfig: '/content/ckeditor/config.js',
-                extraAllowedContent: 'span',
-            });
-
-            $('body').on('click', '.btnXoaAnh', function () {
-                var conf = confirm('Bạn có muốn xóa ảnh này không?');
-                if (conf === true) {
-                    var _id = $(this).data('id');
-                    $('#trow_' + _id).fadeTo('fast', 0.5, function () {
-                        $(this).slideUp('fast', function () { $(this).remove(); });
-                    });
-                    var temp = $('#tCurrentId').val();
-                    var currentId = parseInt(temp) - 1;
-                    $('#tCurrentId').val(currentId);
-                }
+            $('#uploadButton').click(function () {
+                elFinderDialog(editor);
             });
         });
-        function BrowseServer(field) {
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (fileUrl) {
-                addImageProduct(fileUrl);
-            };
-            finder.popup();
-        }
-        function addImageProduct(url) {
-            var temp = $('#tCurrentId').val();
-            var currentId = parseInt(temp) + 1;
-            var str = "";
-            if (currentId == 1) {
-                str += `<tr id="trow_${currentId}">
-                                    <td class="text-center">${currentId}</td>
-                                    <td class="text-center"><img width="80" src="${url}" /> <input type='hidden' value="${url}" name="Images"/></td>
-                                    <td class="text-center"><input type="radio" name="rDefault" value="${currentId}" checked="checked"/></td>
-                                    <td class="text-center"><a href="#" data-id="${currentId}" class="btn btn-sm btn-danger btnXoaAnh">Xóa</a></td>
-                                    </tr>`;
+        (function (factory) {
+            if (typeof define === 'function' && define.amd) {
+                define(['jquery'], factory);
             }
-            else {
-                str += `<tr id="trow_${currentId}">
-                                    <td class="text-center">${currentId}</td>
-                                    <td class="text-center"><img width="80" src="${url}" /> <input type='hidden' value="${url}" name="Images"/></td>
-                                    <td class="text-center"><input type="radio" name="rDefault" value="${currentId}"/></td>
-                                    <td class="text-center"><a href="#" data-id="${currentId}" class="btn btn-sm btn-danger btnXoaAnh">Xóa</a></td>
-                                    </tr>`;
+            else if (typeof module === 'object' && module.exports) {
+                module.exports = factory(require('jquery'));
+            } else {
+                factory(window.jQuery);
             }
-            $('#tbHtml').append(str);
-            $('#tCurrentId').val(currentId);
-            //$('#tbHtml tr td a').each(function () {
-            //    $(this).click(function () {
-            //        var conf = confirm('Bạn có muốn xóa ảnh này không?');
-            //        if (conf === true) {
-            //            var _id = $(this).data('id');
-            //            $('#trow_' + _id).fadeTo('fast',1, function () {
-            //                $(this).slideUp('fast', function () { $(this).remove(); });
-            //            });
-            //            var temp = $('#tCurrentId').val();
-            //            var currentId = parseInt(temp) - 1;
-            //            $('#tCurrentId').val(currentId);
-            //            }
-            //        });
-            //    });
+        }(function ($) {
+            $.extend($.summernote.plugins, {
+                // Tạo plugin tên elfinder
+                'elfinder': function (context) {
+                    var self = this;
+                    // ui has renders to build ui elements.
+                    var ui = $.summernote.ui;
+                    // Tạo nút bấm
+                    context.memo('button.elfinder', function () {
+                        var button = ui.button({
+                            contents: '<i class="note-icon-picture"/> Files',
+                            tooltip: 'Quản lý file',
+                            click: function () {
+                                // Bấm vào nút bấm gọi hàm elfinderDialog
+                                elfinderDialog(context);
+                            }
+                        });
+                        // create jQuery object from button instance.
+                        var $elfinder = button.render();
+                        return $elfinder;
+                    });
+                    // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+                    // You should remove elements on `initialize`.
+                    this.destroy = function () {
+                        this.$panel.remove();
+                        this.$panel = null;
+                    };
+                }
+
+            });
+        }));
+        function openElFinder(button) {
+            // Lấy giá trị editor từ thuộc tính data
+            elfinderDialogPicture();
         }
+        function elfinderDialogPicture() {
+            var fm = $('<div class="ui-front-finder"/>').dialogelfinder({
+                baseUrl: "@Url.Content("~/lib/elfinder/")",
+                url: "@Url.Action("Connector", "FileManager", new { area = "Files" })",
+                lang: 'vi',
+                width: 840,
+                height: 450,
+                destroyOnClose: true,
+                getFileCallback: function (files, fm) {
+                    console.log(files);
+                    // Chuyển đổi đường dẫn tuyệt đối thành đường dẫn tương đối
+                    var relativePath = getRelativePath(files.url);
+
+                    // Cập nhật giá trị của textbox với đường dẫn tương đối
+                    $('#imageURL').val(relativePath);
+                },
+                commandsOptions: {
+                    getfile: {
+                        oncomplete: 'close',
+                        folders: false
+                    }
+                }
+            }).dialogelfinder('instance');
+        }
+        function getRelativePath(absolutePath) {
+            // Lấy phần path sau domain
+            var relativePath = absolutePath.replace(/^.*\/\/[^\/]+/, '');
+
+            return relativePath;
+        }
+
+        function elfinderDialog(editor) {
+            var fm = $('<div class="ui-front-finder"/>').dialogelfinder({
+                baseUrl: "@Url.Content("~/lib/elfinder/")",
+                url: "@Url.Action("Connector", "FileManager", new { area = "Files" })",
+                lang: 'vi',
+                width: 840,
+                height: 450,
+                destroyOnClose: true,
+                getFileCallback: function (files, fm) {
+                    console.log(files);
+                    editor.invoke('editor.insertImage', files.url);
+                },
+                commandsOptions: {
+                    getfile: {
+                        oncomplete: 'close',
+                        folders: false
+                    }
+                }
+
+            }).dialogelfinder('instance');
+        }
+
 
     </script>
 }

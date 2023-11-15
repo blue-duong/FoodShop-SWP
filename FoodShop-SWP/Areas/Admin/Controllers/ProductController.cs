@@ -127,7 +127,10 @@ namespace FoodShop_SWP.Areas.Admin.Controllers
             {
                 item.ModifiedDate = DateTime.Now;
                 item.IsActive = !item.IsActive;
-
+                if(item.Quantity == 0)
+                {
+                    item.IsActive = false;
+                }
                 db.Entry(item).Property(x => x.ModifiedDate).IsModified = true;
                 db.Entry(item).Property(x => x.IsActive).IsModified = true;
                 db.SaveChanges();

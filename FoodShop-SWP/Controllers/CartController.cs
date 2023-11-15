@@ -91,9 +91,14 @@ namespace FoodShop_SWP.Controllers
             order.ModifiedDate = DateTime.Now;
             order.CustomerName = customerName;
             order.Phone = phone;
-            order.CreatedBy = phone;
+            order.CreatedBy = HttpContext.Session.GetString("UserId");
             order.Address = address;
             order.TypePayment = paymentType;
+            if (paymentType != 1)
+            {
+                order.Status = 2;
+            }
+            order.Status = 1;
             order.Quantity = cart.Count;
             order.TotalAmount = cart.Total;
             if (paymentType == 1)

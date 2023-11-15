@@ -60,6 +60,18 @@
                             <label asp-for="Alias">Alias</label>
                             <input asp-for="Alias" class="form-control" />
                         </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Icon">Image</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    @Html.TextBoxFor(x => x.Icon, new { @class = "form-control", @id = "imageURL" })
+                                </div>
+                                <div class="input-group-append">
+                                    <input asp-for="Icon" type="button" value="upload" onclick="openElFinder(this);" data-editor="your_editor_value" />
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label asp-for="Description">Description</label>
                             <textarea asp-for="Description" class="form-control"></textarea>
@@ -99,20 +111,123 @@
 @section  scripts{
     <script>
         $(document).ready(function () {
-            CKEDITOR.replace('txtDetail', {
-                customConfig: 'adminlayout/ckeditor/config.js',
-                extraAllowedContent: 'span',
+            $('#summernoteEditor').summernote({
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['height', ['height']],
+                    ['insert', ['link', 'picture', 'video', 'elfinder']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+            $('#uploadButton').click(function () {
+                elFinderDialog(editor);
             });
         });
-        function BrowseServer(field) {
-            var finder = new CKFinder();
-            finder.selectActionFunction = function (fileUrl) {
-                document.getElementById(field).value = fileUrl;
-            };
-            finder.popup();
+        (function (factory) {
+            if (typeof define === 'function' && define.amd) {
+                define(['jquery'], factory);
+            }
+            else if (typeof module === 'object' && module.exports) {
+                module.exports = factory(require('jquery'));
+            } else {
+                factory(window.jQuery);
+            }
+        }(function ($) {
+            $.extend($.summernote.plugins, {
+                // Tạo plugin tên elfinder
+                'elfinder': function (context) {
+                    var self = this;
+                    // ui has renders to build ui elements.
+                    var ui = $.summernote.ui;
+                    // Tạo nút bấm
+                    context.memo('button.elfinder', function () {
+                        var button = ui.button({
+                            contents: '<i class="note-icon-picture"/> Files',
+                            tooltip: 'Quản lý file',
+                            click: function () {
+                                // Bấm vào nút bấm gọi hàm elfinderDialog
+                                elfinderDialog(context);
+                            }
+                        });
+                        // create jQuery object from button instance.
+                        var $elfinder = button.render();
+                        return $elfinder;
+                    });
+                    // This methods will be called when editor is destroyed by $('..').summernote('destroy');
+                    // You should remove elements on `initialize`.
+                    this.destroy = function () {
+                        this.$panel.remove();
+                        this.$panel = null;
+                    };
+                }
+
+            });
+        }));
+        function openElFinder(button) {
+            // Lấy giá trị editor từ thuộc tính data
+            elfinderDialogPicture();
+        }
+        function elfinderDialogPicture() {
+            var fm = $('<div class="ui-front-finder"/>').dialogelfinder({
+                baseUrl: "@Url.Content("~/lib/elfinder/")",
+                url: "@Url.Action("Connector", "FileManager", new { area = "Files" })",
+                lang: 'vi',
+                width: 840,
+                height: 450,
+                destroyOnClose: true,
+                getFileCallback: function (files, fm) {
+                    console.log(files);
+                    // Chuyển đổi đường dẫn tuyệt đối thành đường dẫn tương đối
+                    var relativePath = getRelativePath(files.url);
+
+                    // Cập nhật giá trị của textbox với đường dẫn tương đối
+                    $('#imageURL').val(relativePath);
+                },
+                commandsOptions: {
+                    getfile: {
+                        oncomplete: 'close',
+                        folders: false
+                    }
+                }
+            }).dialogelfinder('instance');
+        }
+        function getRelativePath(absolutePath) {
+            // Lấy phần path sau domain
+            var relativePath = absolutePath.replace(/^.*\/\/[^\/]+/, '');
+
+            return relativePath;
         }
 
+        function elfinderDialog(editor) {
+            var fm = $('<div class="ui-front-finder"/>').dialogelfinder({
+                baseUrl: "@Url.Content("~/lib/elfinder/")",
+                url: "@Url.Action("Connector", "FileManager", new { area = "Files" })",
+                lang: 'vi',
+                width: 840,
+                height: 450,
+                destroyOnClose: true,
+                getFileCallback: function (files, fm) {
+                    console.log(files);
+                    editor.invoke('editor.insertImage', files.url);
+                },
+                commandsOptions: {
+                    getfile: {
+                        oncomplete: 'close',
+                        folders: false
+                    }
+                }
+
+            }).dialogelfinder('instance');
+        }
+
+
     </script>
-    }
+}
 
 

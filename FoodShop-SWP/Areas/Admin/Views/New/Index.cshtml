@@ -81,12 +81,12 @@
                         var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
                         foreach (var item in Model)
                         {
-                            
-                            var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+
+                            var strCheck = item.IsActive ? "<i class='far fa-check-square'></i>" : "<i class='far fa-square '></i>";
                             <tr id="trow_@item.Id">
                                 <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
                                 <td>@i </td>
-                                <td><img src="~/Images/blogs/@item.Image" width="70" alt="Hình ảnh" ></td>
+                                <td><img src="@item.Image" width="70" alt="Hình ảnh" ></td>
                                 <td>@item.Title</td>
                                 <td class ="text-center">
                                     <a href='#' data-id="@item.Id" class="btnActive">@Html.Raw(strCheck)</a>
@@ -201,11 +201,11 @@
                     success: function (rs) {
                         if (rs.success) {
                             if (rs.isActive) {
-                                btn.html("<i class='fa fa-check text-success'></i>");
+                                btn.html("<i class='far fa-check-square'></i>");
                                 //$(this).find("i").removeClass("fas fa-times text-danger")
                                 //$(this).find("i").addClass("fa fa-check text-success");
                             } else {
-                                btn.html("<i class='fas fa-times text-danger'></i>");
+                                btn.html("<i class='far fa-square'></i>");
                             }
                         }
 
